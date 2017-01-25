@@ -26,5 +26,11 @@ namespace Keybo_2.Controllers
 
             return View();
             }
+
+        public ActionResult Keybo()
+            {
+            ViewBag.Message = "Keybo";
+            return View();
+            }
         }
     }

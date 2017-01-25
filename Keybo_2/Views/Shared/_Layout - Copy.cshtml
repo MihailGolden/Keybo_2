@@ -4,13 +4,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Keybotrain</title>
-    @Styles.Render("~/Content/css")
+    @*@Styles.Render("~/Content/css")*@
     @Scripts.Render("~/bundles/modernizr")
-
 
 </head>
 <body>
-    <nav class="navbar navbar-default navbar-fixed-top ">
+    <nav class="navbar navbar-default navbar-fixed-top container-fluid">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -35,10 +34,15 @@
         @RenderBody()
  
 
-  
-    @Scripts.Render("~/bundles/jquery")
+        <nav class="navbar navbar-default navbar-fixed-bottom" >
+             <footer>
+                <p>&copy; @DateTime.Now.Year - Keybotrain</p>
+            </footer>
+        </nav>
+
+
+    @*@Scripts.Render("~/bundles/jquery")*@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-
 </body>
 </html>
