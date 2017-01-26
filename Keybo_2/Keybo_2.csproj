@@ -184,6 +184,13 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\Learning\fingers1.gif" />
+    <Content Include="Content\images\Learning\fingers2.gif" />
+    <Content Include="Content\images\Learning\li.gif" />
+    <Content Include="Content\images\Learning\rest.png" />
+    <Content Include="Content\images\Learning\seat.gif" />
+    <Content Include="Content\images\Learning\strip.jpg" />
+    <Content Include="Content\images\Learning\timer.png" />
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\logo200.png" />
     <Content Include="Content\Sounds\beep.mp3" />
@@ -302,6 +309,7 @@
     <Content Include="Views\Home\Index_old.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Layout - Copy.cshtml" />
+    <Content Include="Views\Home\Learning.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

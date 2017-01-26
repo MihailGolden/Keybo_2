@@ -13,6 +13,11 @@ namespace Keybo_2.Controllers
             return View();
             }
 
+        public ActionResult Learning()
+            {
+            return View();
+            }
+
         public ActionResult About()
             {
             ViewBag.Message = "Your application description page.";
