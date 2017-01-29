@@ -26,11 +26,11 @@ namespace Keybo_2.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=mssql4.1gb.ua;Initial Catalog=1gb_x_keybo1f2;Persist Security Info=Tr" +
-            "ue;User ID=1gb_keybotrain;Password=5901f481em12")]
-        public string GB {
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=mssql4.1gb.ua;Initial Catalog=1gb_keybo;Persist Security Info=True;Us" +
+            "er ID=1gb_keybotrain;Password=5901f481em12")]
+        public string DefaultConnection {
             get {
-                return ((string)(this["GB"]));
+                return ((string)(this["DefaultConnection"]));
             }
         }
     }
