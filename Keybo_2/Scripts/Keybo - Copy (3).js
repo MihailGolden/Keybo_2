@@ -881,22 +881,22 @@ function get_location() {
     var minutes = parseInt($('#time a').text(), 10);
     $('#time').data('minutes', minutes);
 }
-//function rss_load(name) {
-//    $('#dict').removeClass('error').addClass('wait');
-//    $.ajax({
-//        url: '/rss/?name=' + name,
-//        success: function (text) {
-//            $('#dict').removeClass('wait');
-//            dict_generate(text);
-//        },
-//        error: function () {
-//            $('#dict').removeClass('wait').addClass('error');
-//            dict = [];
-//            draw_keyboard('');
-//            intext_check();
-//        }
-//    });
-//}
+function rss_load(name) {
+    $('#dict').removeClass('error').addClass('wait');
+    $.ajax({
+        url: '/rss/?name=' + name,
+        success: function (text) {
+            $('#dict').removeClass('wait');
+            dict_generate(text);
+        },
+        error: function () {
+            $('#dict').removeClass('wait').addClass('error');
+            dict = [];
+            draw_keyboard('');
+            intext_check();
+        }
+    });
+}
 function dict_start(href) {
     var lang = href.substring(1).split('_')[0];
     var type = href.split('_')[1];
@@ -1441,7 +1441,6 @@ function rand_dict(notin) {
     }
     return index;
 }
-
 function show_keyboard() {
     var href = $('#refresh').attr('href');
     var lang = href.split('_')[0].substring(1);

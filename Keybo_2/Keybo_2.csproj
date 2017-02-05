@@ -226,6 +226,7 @@
     <Content Include="Content\images\Learning\timer.png" />
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\logo200.png" />
+    <Content Include="Content\images\favicon.ico" />
     <Content Include="Content\Sounds\beep.mp3" />
     <Content Include="Content\Keybo.css" />
     <Content Include="Content\dict\eng_adv.txt" />
@@ -255,7 +256,6 @@
     <Content Include="Content\dict\rus_kg2.txt" />
     <Content Include="Content\dict\ukr_adv.txt" />
     <Content Include="Content\dict\ukr_begin.txt" />
-    <Content Include="Content\images\favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -304,12 +304,14 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\Keybo - Copy %282%29.js" />
+    <Content Include="Scripts\Keybo - Copy %283%29.js" />
     <Content Include="Scripts\Keybo - Copy.js" />
     <Content Include="Scripts\Keybo.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Home\Index - Copy.cshtml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>

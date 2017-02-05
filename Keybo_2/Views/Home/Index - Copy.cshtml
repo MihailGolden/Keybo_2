@@ -7,7 +7,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Keybotrain | Keyboard trainer | Клавиатурный тренажер</title>
-    <link rel="shortcut icon" type="image/x-icon" href="~/Content/images/favicon.ico"
+    <link rel="shortcut icon" type="image/x-icon" href="~/Content/images/favicon.ico" />
    
      <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 
@@ -39,11 +39,31 @@
                 <hr />
                 <div><span>Українська </span><a href="#ukr_basic" title="0&ndash;59">стартовий</a><span>, </span><a href="#ukr_begin" title="60&ndash;109">початковий</a><span>, </span><a href="#ukr_speed" title="110&ndash;199">швидкість</a><span>, </span><a href="#ukr_adv" title="200&ndash;∞">тренування</a></div>
                 <hr />
+                <div><span>Esperanto </span><a href="#epo_basic" title="0&ndash;59">starta</a><span>, </span><a href="#epo_begin" title="60&ndash;109">komenca</a><span>, </span><a href="#epo_speed" title="110&ndash;199">rapideco</a><span>, </span><a href="#epo_adv" title="200&ndash;∞">trejnado</a></div>
+                <hr />
                 <div class="head">Словари</div>
+                <div><span>Частотный 2000 </span><a href="#rus_dict_eng_top">англ-рус</a><span>, </span><a href="#eng_dictrev_rus_top">рус-англ</a></div>
+                <div><span>Частотный 3000 (new) </span><a href="#rus_dict_eng_top2">англ-рус</a><span>, </span><a href="#eng_dictrev_rus_top2">рус-англ</a></div>
+                <div><span>Бизнес </span><a href="#rus_dict_eng">англ-рус</a><span>, </span><a href="#eng_dictrev_rus">рус-англ</a> (1&nbsp;Мб)</div>
+                <div><span>Эсперанто 3000 </span><a href="#rus_dict_epo">эсп-рус</a><span>, </span><a href="#epo_dictrev_rus">рус-эсп</a></div>
+                <hr />
+                <div class="head">Programming</div>
+                <div>
+                    <a href="#eng_code_c">C</a>,
+                    <a href="#eng_code_cpp">C++</a>,
+                    <a href="#eng_code_pascal">Pascal</a>,
+                    <a href="#eng_code_php">PHP</a>,
+                    <a href="#eng_code_python">Python</a>,
+                    <a href="#eng_code_sql">SQL</a>,
+                    <a href="#eng_code_xslt">XML/XSLT</a>
+                </div>
                 <hr />
                 <div><a href="#num_begin">Numline | Цифровой ряд</a></div>
                 <div><a href="#numpad">Numpad | Цифровой блок</a></div>
                 <hr />
+                <div class="head">RSS</div>
+                <div><a href="#rss_bash">bash.org.ru</a></div>
+                <div><a href="#rss_greatwords">greatwords.ru</a></div>
                 <hr />
                 <div><a href="#mydict" class="link">My text | Свой текст</a></div>
             </div>
@@ -60,7 +80,7 @@
             </a>
             <span id="error" title="Show/hide | Показать/скрыть"><span class="data"><span class="nimp">--</span></span></span>
             <span id="speed" title="Show/hide | Показать/скрыть"><span class="data"><span class="nimp">--</span></span></span>
-            @*<div id="time_sel" class="wind_sel">
+            <div id="time_sel" class="wind_sel">
                 <span class="close"></span>
                 <a href="#5" class="link">&nbsp;5</a><br />
                 <a href="#10" class="link">10</a><br />
@@ -69,7 +89,7 @@
                 <a href="#30" class="link">30</a><br />
             </div>
             <div id="time" title="Timer (min) | Таймер (мин)"><a href="#time" class="link">15</a></div>
-        </div>*@
+        </div>
         <hr />
         <div style="margin-top: 30px;"></div>
         <div id="question" style="visibility: hidden;"></div>
@@ -112,6 +132,7 @@
                         <span class="close"></span>
                         <div class="list"><a href="#qwerty">qwerty</a></div>
                     </div>
+                    <span id="layout" class="select" title="Select keyboard layout | Выберите раскладку клавиатуры"><a href="#layout" class="link">qwerty</a></span>
                     <div class="keys" id="standart">
                         <div class="line"><div class="f5 sup2">`<sup><sup>~</sup></sup></div><div class="f5 sup">1<sup>!</sup></div><div class="f4 sup">2<sup>&#64</sup></div><div class="f3 sup">3<sup>#</sup></div><div class="f2 sup">4<sup>$</sup></div><div class="f2 sup">5<sup>%</sup></div><div class="f1 sup">6<sup>^</sup></div><div class="f1 sup">7<sup>&amp;</sup></div><div class="f3 sup">8<sup>*</sup></div><div class="f4 sup">9<sup>(</sup></div><div class="f5 sup">0<sup>)</sup></div><div class="f5 sup2">-<sup><sup>_</sup></sup></div><div class="f5 sup">=<sup>+</sup></div><div class="sys backspace off">Backspace</div></div>
                         <div class="line"><div class="sys tab">Tab</div><div class="f5">Q</div><div class="f4">W</div><div class="f3">E</div><div class="f2">R</div><div class="f2">T</div><div class="f1">Y</div><div class="f1">U</div><div class="f3">I</div><div class="f4">O</div><div class="f5">P</div><div class="f5 sup">[<sup>{</sup></div><div class="f5 sup">]<sup>}</sup></div><div class="f5 sup">\<sup>|</sup></div></div>
