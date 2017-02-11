@@ -1,101 +1,17 @@
-﻿var keyboards = {
+﻿"use strict";
+
+var keyboards = {
     'eng': {
         'qwerty': ['`<sup><sup>~</sup></sup>', '1<sup>!</sup>', '2<sup>&#64</sup>', '3<sup>#</sup>', '4<sup>$</sup>', '5<sup>%</sup>', '6<sup>^</sup>', '7<sup>&amp;</sup>', '8<sup>*</sup>', '9<sup>(</sup>', '0<sup>)</sup>', '-<sup><sup>_</sup></sup>', '=<sup>+</sup>',
 				'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '[<sup>{</sup>', ']<sup>}</sup>', '\\<sup>|</sup>',
 				'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';<sup>:</sup>', '\'<sup>"</sup>',
 				'Z', 'X', 'C', 'V', 'B', 'N', 'M', ',<sup>&lt;</sup>', '.<sup>&gt;</sup>', '/<sup>?</sup>'],
-        'colemak': ['`<sup><sup>~</sup></sup>', '1<sup>!</sup>', '2<sup>&#64</sup>', '3<sup>#</sup>', '4<sup>$</sup>', '5<sup>%</sup>', '6<sup>^</sup>', '7<sup>&amp;</sup>', '8<sup>*</sup>', '9<sup>(</sup>', '0<sup>)</sup>', '-<sup><sup>_</sup></sup>', '=<sup>+</sup>',
-				'Q', 'W', 'F', 'P', 'G', 'J', 'L', 'U', 'Y', ';<sup>:</sup>', '[<sup>{</sup>', ']<sup>}</sup>', '\\<sup>|</sup>',
-				'A', 'R', 'S', 'T', 'D', 'H', 'N', 'E', 'I', 'O', '\'<sup>"</sup>',
-				'Z', 'X', 'C', 'V', 'B', 'K', 'M', ',<sup>&lt;</sup>', '.<sup>&gt;</sup>', '/<sup>?</sup>'],
-        'workman': ['`<sup><sup>~</sup></sup>', '1<sup>!</sup>', '2<sup>&#64</sup>', '3<sup>#</sup>', '4<sup>$</sup>', '5<sup>%</sup>', '6<sup>^</sup>', '7<sup>&amp;</sup>', '8<sup>*</sup>', '9<sup>(</sup>', '0<sup>)</sup>', '-<sup><sup>_</sup></sup>', '=<sup>+</sup>',
-				'Q', 'D', 'R', 'W', 'B', 'J', 'F', 'U', 'P', ';<sup>:</sup>', '[<sup>{</sup>', ']<sup>}</sup>', '\\<sup>|</sup>',
-				'A', 'S', 'H', 'T', 'G', 'Y', 'N', 'E', 'O', 'I', '\'<sup>"</sup>',
-				'Z', 'X', 'M', 'C', 'V', 'K', 'L', ',<sup>&lt;</sup>', '.<sup>&gt;</sup>', '/<sup>?</sup>'],
-        'workman_program': ['~<sup>`</sup>', '!<sup>1</sup>', '&#64<sup>2</sup>', '#<sup>3</sup>', '$<sup>4</sup>', '%<sup>5</sup>', '^<sup>6</sup>', '&amp;<sup>7</sup>', '*<sup>8</sup>', '(<sup>9</sup>', ')<sup>0</sup>', '-<sup><sup>_</sup></sup>', '=<sup>+</sup>',
-				'Q', 'D', 'R', 'W', 'B', 'J', 'F', 'U', 'P', ';<sup>:</sup>', '{<sup>[</sup>', '}<sup>]</sup>', '\\<sup>|</sup>',
-				'A', 'S', 'H', 'T', 'G', 'Y', 'N', 'E', 'O', 'I', '\'<sup>"</sup>',
-				'Z', 'X', 'M', 'C', 'V', 'K', 'L', ',<sup>&lt;</sup>', '.<sup>&gt;</sup>', '/<sup>?</sup>'],
-        'dvorak': ['`<sup><sup>~</sup></sup>', '1<sup>!</sup>', '2<sup>&#64</sup>', '3<sup>#</sup>', '4<sup>$</sup>', '5<sup>%</sup>', '6<sup>^</sup>', '7<sup>&amp;</sup>', '8<sup>*</sup>', '9<sup>(</sup>', '0<sup>)</sup>', '[<sup><sup>{</sup></sup>', ']<sup>}</sup>',
-				'\'<sup>"</sup>', ',<sup>&lt;</sup>', '.<sup>&gt;</sup>', 'P', 'Y', 'F', 'G', 'C', 'R', 'L', '/<sup>?</sup>', '=<sup>+</sup>', '\\<sup>|</sup>',
-				'A', 'O', 'E', 'U', 'I', 'D', 'H', 'T', 'N', 'S', '-<sup><sup>_</sup></sup>',
-				';<sup>:</sup>', 'Q', 'J', 'K', 'X', 'B', 'M', 'W', 'V', 'Z'],
-        'dvorak_left': ['`<sup><sup>~</sup></sup>', '[<sup>{</sup>', ']<sup>}</sup>', '/<sup>?</sup>', 'P', 'F', 'M', 'L', 'J', '4<sup>$</sup>', '3<sup>#</sup>', '2<sup>&#64</sup>', '1<sup>!</sup>',
-				';<sup>:</sup>', 'Q', 'B', 'Y', 'U', 'R', 'S', 'O', '.<sup>&gt;</sup>', '6<sup>^</sup>', '5<sup>%</sup>', '=<sup>+</sup>', '\\<sup>|</sup>',
-				'-<sup><sup>_</sup></sup>', 'K', 'C', 'D', 'T', 'H', 'E', 'A', 'Z', '8<sup>*</sup>', '7<sup>&amp;</sup>',
-				'\'<sup>"</sup>', 'X', 'G', 'V', 'W', 'N', 'I', ',<sup>&lt;</sup>', '0<sup>)</sup>', '9<sup>(</sup>'],
-        'dvorak_right': ['`<sup><sup>~</sup></sup>', '1<sup>!</sup>', '2<sup>&#64</sup>', '3<sup>#</sup>', '4<sup>$</sup>', 'J', 'L', 'M', 'F', 'P', '/<sup>?</sup>', '[<sup><sup>{</sup></sup>', ']<sup>}</sup>',
-				'5<sup>%</sup>', '6<sup>^</sup>', 'Q', '.<sup>&gt;</sup>', 'O', 'R', 'S', 'U', 'Y', 'B', ';<sup>:</sup>', '=<sup>+</sup>', '\\<sup>|</sup>',
-				'7<sup>&amp;</sup>', '8<sup>*</sup>', 'Z', 'A', 'E', 'H', 'T', 'D', 'C', 'K', '-<sup><sup>_</sup></sup>',
-				'9<sup>(</sup>', '0<sup>)</sup>', 'X', ',<sup>&lt;</sup>', 'I', 'N', 'W', 'V', 'G', '\'<sup>"</sup>'],
-        'dvorak_program': ['$<sup>~</sup></sup>', '&amp;<sup>%</sup>', '[<sup>7</sup>', '{<sup>5</sup>', '}<sup>3</sup>', '(<sup>1</sup>', '=<sup>9</sup>', '*<sup>0</sup>', ')<sup>2</sup>', '+<sup>4</sup>', ']<sup>6</sup>', '!<sup>8</sup>', '#<sup>`</sup>',
-				';<sup>:</sup>', ',<sup>&lt;</sup>', '.<sup>&gt;</sup>', 'P', 'Y', 'F', 'G', 'C', 'R', 'L', '/<sup>?</sup>', '&#64<sup>^</sup>', '\\<sup>|</sup>',
-				'A', 'O', 'E', 'U', 'I', 'D', 'H', 'T', 'N', 'S', '-<sup><sup>_</sup></sup>',
-				'\'<sup>"</sup>', 'Q', 'J', 'K', 'X', 'B', 'M', 'W', 'V', 'Z'],
-        'jcuken': ['`<sup><sup>~</sup></sup>', '1<sup>!</sup>', '2<sup>&#64</sup>', '3<sup>#</sup>', '4<sup>$</sup>', '5<sup>%</sup>', '6<sup>^</sup>', '7<sup>&amp;</sup>', '8<sup>*</sup>', '9<sup>(</sup>', '0<sup>)</sup>', '-<sup><sup>_</sup></sup>', '=<sup>+</sup>',
-				'J', 'C', 'U', 'K', 'E', 'N', 'G', 'H', 'W', 'Z', '[<sup>{</sup>', ']<sup>}</sup>', '\\<sup>|</sup>',
-				'F', 'Y', 'V', 'A', 'P', 'R', 'O', 'L', 'D', ';<sup>:</sup>', '\'<sup>"</sup>',
-				'Q', '/<sup>?</sup>', 'S', 'M', 'I', 'T', 'X', 'B', ',<sup>&lt;</sup>', '.<sup>&gt;</sup>'],
-        'klausler': ['`<sup><sup>~</sup></sup>', '1<sup>!</sup>', '2<sup>&#64</sup>', '3<sup>#</sup>', '4<sup>$</sup>', '5<sup>%</sup>', '6<sup>^</sup>', '7<sup>&amp;</sup>', '8<sup>*</sup>', '9<sup>&lt;</sup>', '0<sup>&gt;</sup>', '{<sup>[</sup>', '}<sup>]</sup>',
-				'K', ',<sup>(</sup>', 'U', 'Y', 'P', 'W', 'L', 'M', 'F', 'C', '/<sup>?</sup>', '=<sup>+</sup>', '\\<sup>|</sup>',
-				'O', 'A', 'E', 'I', 'D', 'R', 'N', 'T', 'H', 'S', '-<sup><sup>_</sup></sup>',
-				'Q', '.<sup>)</sup>', '\'<sup>"</sup>', ';<sup>:</sup>', 'Z', 'X', 'V', 'G', 'B', 'J'],
-        'ant': ['&#64<sup>§</sup>', '!<sup>9</sup>', '?<sup>7</sup>', '\'<sup>5</sup>', '"<sup>3</sup>', '=<sup>1</sup>', '+<sup>0</sup>', '-<sup>2</sup>', '*<sup>4</sup>', '/<sup>6</sup>', '%<sup>8</sup>', '(<sup>[</sup>', ')<sup>]</sup>',
-				'J', 'P', 'O', 'U', 'X', 'B', 'D', 'L', 'C', 'W', '{<sup>&lt;</sup>', '}<sup>&gt;</sup>', '^<sup>`</sup>',
-				'I', 'N', 'E', 'A', 'Y', 'M', 'H', 'T', 'S', 'R', '&amp;<sup>\\</sup>',
-				'#<sup>~</sup>', 'Z', 'Q', 'K', ',<sup>;</sup>', '.<sup>:</sup>', 'F', 'G', 'V', '|<sup>_</sup>'],
-        'catboard': ['`<sup><sup>~</sup></sup>', '1<sup>!</sup>', '2<sup>&#64</sup>', '3<sup>#</sup>', '4<sup>$</sup>', '5<sup>%</sup>', '6<sup>^</sup>', '7<sup>&amp;</sup>', '8<sup>*</sup>', '9<sup>(</sup>', '0<sup>)</sup>', '-<sup><sup>_</sup></sup>', '=<sup>+</sup>',
-				'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '[<sup>{</sup>', ']<sup>}</sup>',
-				'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';<sup>:</sup>', '\'<sup>"</sup>', '\\<sup>|</sup>',
-				'Z', 'X', 'C', 'V', 'B', 'N', 'M', ',<sup>&lt;</sup>', '.<sup>&gt;</sup>', '/<sup>?</sup>'],
-        'catboard_jcuken': ['`<sup><sup>~</sup></sup>', '1<sup>!</sup>', '2<sup>&#64</sup>', '3<sup>#</sup>', '4<sup>$</sup>', '5<sup>%</sup>', '6<sup>^</sup>', '7<sup>&amp;</sup>', '8<sup>*</sup>', '9<sup>(</sup>', '0<sup>)</sup>', '-<sup><sup>_</sup></sup>', '=<sup>+</sup>',
-				'J', 'C', 'U', 'K', 'E', 'N', 'G', 'H', 'W', 'Z', '[<sup>{</sup>', ']<sup>}</sup>',
-				'F', 'Y', 'V', 'A', 'P', 'R', 'O', 'L', 'D', ';<sup>:</sup>', '\'<sup>"</sup>', '\\<sup>|</sup>',
-				'Q', '/<sup>?</sup>', 'S', 'M', 'I', 'T', 'X', 'B', ',<sup>&lt;</sup>', '.<sup>&gt;</sup>'],
-    },
-    'epo': {
-        'esperan.to': ['`<sup><sup>~</sup></sup>', '1<sup>!</sup>', '2<sup>&#64</sup>', '3<sup>#</sup>', '4<sup>$</sup>', '5<sup>%</sup>', '6<sup>^</sup>', '7<sup>&amp;</sup>', '8<sup>*</sup>', '9<sup>(</sup>', '0<sup>)</sup>', '-<sup><sup>_</sup></sup>', '=<sup>+</sup>',
-				'Ŝ', 'Ĝ', 'E', 'R', 'T', 'Ŭ', 'U', 'I', 'O', 'P', 'Ĵ', 'Ĥ', '\\<sup>|</sup>',
-				'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';<sup>:</sup>', '\'<sup>"</sup>',
-				'Z', 'Ĉ', 'C', 'V', 'B', 'N', 'M', ',<sup>&lt;</sup>', '.<sup>&gt;</sup>', '/<sup>?</sup>']
     },
     'rus': {
         'йцукен': ['Ё', '1<sup>!</sup>', '2<sup>"</sup>', '3<sup>№</sup>', '4<sup>;</sup>', '5<sup>%</sup>', '6<sup>:</sup>', '7<sup>?</sup>', '8<sup>*</sup>', '9<sup>(</sup>', '0<sup>)</sup>', '-<sup><sup>_</sup></sup>', '=<sup>+</sup>',
 				'Й', 'Ц', 'У', 'К', 'Е', 'Н', 'Г', 'Ш', 'Щ', 'З', 'Х', 'Ъ', '\\<sup>/</sup>',
 				'Ф', 'Ы', 'В', 'А', 'П', 'Р', 'О', 'Л', 'Д', 'Ж', 'Э',
 				'Я', 'Ч', 'С', 'М', 'И', 'Т', 'Ь', 'Б', 'Ю', '.<sup>,</sup>'],
-        'машинопись': ['|<sup>+</sup>', '№<sup>1</sup>', '-<sup>2</sup>', '/<sup>3</sup>', '"<sup>4</sup>', ':<sup>5</sup>', ',<sup>6</sup>', '.<sup>7</sup>', '_<sup>8</sup>', '?<sup>9</sup>', '%<sup>0</sup>', '!<sup>=</sup>', ';<sup>\\</sup>',
-				'Й', 'Ц', 'У', 'К', 'Е', 'Н', 'Г', 'Ш', 'Щ', 'З', 'Х', 'Ъ', ')<sup>(</sup>',
-				'Ф', 'Ы', 'В', 'А', 'П', 'Р', 'О', 'Л', 'Д', 'Ж', 'Э',
-				'Я', 'Ч', 'С', 'М', 'И', 'Т', 'Ь', 'Б', 'Ю', 'Ё'],
-        'фонетическая': ['Ю', '1<sup>!</sup>', '2<sup>&#64</sup>', '3<sup>ё</sup>', '4<sup>Ё</sup>', '5<sup>ъ</sup>', '6<sup>Ъ</sup>', '7<sup>&amp;</sup>', '8<sup>*</sup>', '9<sup>(</sup>', '0<sup>)</sup>', '-<sup><sup>_</sup></sup>', 'Ч',
-				'Я', 'В', 'Е', 'Р', 'Т', 'Ы', 'У', 'И', 'О', 'П', 'Ш', 'Щ', 'Э',
-				'А', 'С', 'Д', 'Ф', 'Г', 'Х', 'Й', 'К', 'Л', ';<sup>:</sup>', '\'<sup>"</sup>',
-				'З', 'Ь', 'Ц', 'Ж', 'Б', 'Н', 'М', ',<sup>&lt;</sup>', '.<sup>&gt;</sup>', '/<sup>?</sup>'],
-        'макинтош': ['&lt;<sup>&gt;</sup>', '1<sup>!</sup>', '2<sup>"</sup>', '3<sup>№</sup>', '4<sup>%</sup>', '5<sup>:</sup>', '6<sup>,</sup>', '7<sup>.</sup>', '8<sup>;</sup>', '9<sup>(</sup>', '0<sup>)</sup>', '-<sup><sup>_</sup></sup>', '=<sup>+</sup>',
-				'Й', 'Ц', 'У', 'К', 'Е', 'Н', 'Г', 'Ш', 'Щ', 'З', 'Х', 'Ъ', 'Ё',
-				'Ф', 'Ы', 'В', 'А', 'П', 'Р', 'О', 'Л', 'Д', 'Ж', 'Э',
-				'Я', 'Ч', 'С', 'М', 'И', 'Т', 'Ь', 'Б', 'Ю', '/<sup>?</sup>'],
-        'диктор': ['Ё', '1<sup>Ъ</sup>', '2<sup>Ь</sup>', '3<sup>№</sup>', '4<sup>%</sup>', '5<sup>:</sup>', '6<sup>;</sup>', '7<sup>-</sup>', '8<sup>"</sup>', '9<sup>(</sup>', '0<sup>)</sup>', '*<sup><sup>_</sup></sup>', '=<sup>+</sup>',
-				'Ц', 'ь<sup>ъ</sup>', 'Я', ',<sup>?</sup>', '.<sup>!</sup>', 'З', 'В', 'К', 'Д', 'Ч', 'Ш', 'Щ', '',
-				'У', 'И', 'Е', 'О', 'А', 'Л', 'Н', 'Т', 'С', 'Р', 'Й',
-				'Ф', 'Э', 'Х', 'Ы', 'Ю', 'Б', 'М', 'П', 'Г', 'Ж'],
-        'дворак': ['`<sup><sup>~</sup></sup>', '1<sup>!</sup>', '2<sup>&#64</sup>', '3<sup>#</sup>', '4<sup>$</sup>', '5<sup>%</sup>', '6<sup>^</sup>', '7<sup>&amp;</sup>', '8<sup>*</sup>', '9<sup>(</sup>', '0<sup>)</sup>', '[<sup><sup>{</sup></sup>', ']<sup>}</sup>',
-				'\'<sup>"</sup>', ',<sup>&lt;</sup>', '.<sup>&gt;</sup>', 'П', 'Ы', 'Ф', 'Г', 'Ц<sub>ч</sub>', 'Р', 'Л', '/<sup>?</sup>', '=<sup>+</sup>', '\\<sup>|</sup>',
-				'А', 'О<sub>Ё</sub>', 'Е<sub>Э</sub>', 'У<sub>Ю</sub>', 'И', 'Д', 'Х', 'Т', 'Н', 'С<sub>Ш</sub>', '-<sup><sup>_</sup></sup>',
-				';<sup>:</sup>', 'Я', 'Й', 'К', 'Щ', 'Б<sub>Ъ</sub>', 'М', 'В', 'Ь', 'З<sub>Ж</sub>'],
-        'зубачёв': ['Ё', '1<sup>!</sup>', '2<sup>"</sup>', '3<sup>№</sup>', '4<sup>;</sup>', '5<sup>%</sup>', '6<sup>:</sup>', '7<sup>?</sup>', '8<sup>*</sup>', '9<sup>(</sup>', '0<sup>)</sup>', '-<sup><sup>_</sup></sup>', '=<sup>+</sup>',
-				'Ф', 'Ы', 'А', 'Я', ',<sup>Ъ</sup>', 'Й', 'М', 'Р', 'П', 'Х', 'Ц', 'Щ', '\\<sup>/</sup>',
-				'Г', 'И', 'Е', 'О', 'У', 'Л', 'Т', 'С', 'Н', 'З', 'Ж',
-				'Ш', 'ь<sup>ъ</sup>', 'Ю', '.<sup>Ь</sup>', 'Э', 'Б', 'Д', 'В', 'К', 'Ч'],
-        'ант': ['\\<sup>_</sup>', '!<sup>9</sup>', '?<sup>7</sup>', '\'<sup>5</sup>', '"<sup>3</sup>', '=<sup>1</sup>', '+<sup>0</sup>', '-<sup>2</sup>', '*<sup>4</sup>', '/<sup>6</sup>', '%<sup>8</sup>', '(<sup>«</sup>', ')<sup>»</sup>',
-				'Ю', 'З', 'Я', 'У', 'Ь', 'П', 'В', 'М', 'Д', 'Г', 'Х', 'Ц', 'Ж',
-				'Е', 'Р', 'О', 'А', 'И', 'Л', 'Н', 'Т', 'С', 'К', 'Й',
-				'Э', 'Ф', 'Ё', 'Ы', ',<sup>;</sup>', '.<sup>:</sup>', 'Ч', 'Б', 'Ш', 'Щ'],
-        'catboard_йцукен': ['Ё', '1<sup>!</sup>', '2<sup>"</sup>', '3<sup>№</sup>', '4<sup>;</sup>', '5<sup>%</sup>', '6<sup>:</sup>', '7<sup>?</sup>', '8<sup>*</sup>', '9<sup>(</sup>', '0<sup>)</sup>', '-<sup><sup>_</sup></sup>', '=<sup>+</sup>',
-				'Й', 'Ц', 'У', 'К', 'Е', 'Н', 'Г', 'Ш', 'Щ', 'З', 'Х', 'Ъ',
-				'Ф', 'Ы', 'В', 'А', 'П', 'Р', 'О', 'Л', 'Д', 'Ж', 'Э', '\\<sup>/</sup>',
-				'Я', 'Ч', 'С', 'М', 'И', 'Т', 'Ь', 'Б', 'Ю', '.<sup>,</sup>']
     },
     'ukr': {
         'українська': ['\'<sup>?</sup>', '!<sup>1</sup>', '"<sup>2</sup>', '#<sup>3</sup>', ';<sup>4</sup>', ':<sup>5</sup>', ',<sup>6</sup>', '.<sup>7</sup>', '*<sup>8</sup>', '(<sup>9</sup>', ')<sup>0</sup>', '-<sup><sup>_</sup></sup>', '=<sup>+</sup>',
@@ -131,59 +47,73 @@ jQuery.cookie = function (name, value, options) {
     }
 };
 var beep = null;
-var blur_timer = null;
+//var blur_timer = null;
 $(function () {
-    beep = $("#beep").get(0);
-    $('#error, #speed').click(function () {
+    //beeper where mistake
+        beep = $("#beep").get(0);
+        $('#error, #speed').click(function () {
         $.cookie('keybotrain_speed_error', $('#error .data').has(':visible') ? 'no' : 'yes');
         $('#error .data, #speed .data').fadeToggle();
         $('#intext').focus();
     });
-    if ($.cookie('keybotrain_speed_error') == 'no') {
-        $('#hide_keyboard').hide();
-        $('#error .data, #speed .data').hide();
-    }
-    $('div.title, span.title');
+        //if ($.cookie('keybotrain_speed_error') == 'no') {
+       // $('#hide_keyboard').hide();
+       // $('#error .data, #speed .data').hide();
+    //}
+    //$('div.title, span.title');
     $('#text div').addClass('empty');
     $('#text div.line2').text('Dictonary loading... | Загрузка словаря...');
-    $('#time_sel .close').click(function () {
-        $('#time_sel').fadeOut();
-        $('#intext').focus();
-    });
-    $('#time a').click(function () {
-        intext_notblur();
-        $('div.wind_sel').fadeOut();
-        $('#time_sel').fadeIn();
-        return false;
-    });
-    $('#dict_sel .close').click(function () {
-        $('#dict_sel').fadeOut();
-        $('#intext').focus();
-    });
-    $('#layout_sel .close').click(function () {
-        $('#layout_sel').fadeOut();
-        $('#intext').focus();
-    });
-    $('#logo').click(function () {
-        $(document.body).toggleClass('dzen');
-        if ((!$(document.body).is('.dzen')) && (!$('#text div.empty').length)) {
-            $('#time').data('time', null);
-            $('#time a').text($('#time').data('minutes'));
-        }
-        $('#intext').focus();
-    });
+
+    //timer
+    //$('#time_sel .close').click(function () {
+      //  $('#time_sel').fadeOut();
+       // $('#intext').focus();
+    //});
+
+    //$('#time a').click(function () {
+    //    intext_notblur();
+    //    $('div.wind_sel').fadeOut();
+    //    $('#time_sel').fadeIn();
+    //    return false;
+    //});
+
+
+    ////close select language menu
+    //$('#dict_sel .close').click(function () {
+    //    $('#dict_sel').fadeOut();
+    //    $('#intext').focus();
+    //});
+
+    ////close select keyboard type menu
+    //$('#layout_sel .close').click(function () {
+    //    $('#layout_sel').fadeOut();
+    //    $('#intext').focus();
+    //});
+
+    //// what??
+    //$('#hide_all').click(function () {
+    //    $(document.body).toggleClass('dzen');
+    //    if ((!$(document.body).is('.dzen')) && (!$('#text div.empty').length)) {
+    //        $('#time').data('time', null);
+    //        $('#time a').text($('#time').data('minutes'));
+    //    }
+    //    $('#intext').focus();
+    //});
+
     $('#dict a').click(function () {
-        intext_notblur();
+        //intext_notblur();
         $('div.wind_sel').fadeOut();
         $('#dict_sel').fadeIn();
         return false;
     });
+
     $('#layout a').click(function () {
-        intext_notblur();
+        //intext_notblur();
         $('div.wind_sel').fadeOut();
         $('#layout_sel').fadeIn();
         return false;
     });
+
     $('#hide_keyboard').click(function () {
         $.cookie('keybotrain_keyboard_hide', 'yes');
         $('#hide_keyboard').hide();
@@ -191,6 +121,7 @@ $(function () {
         $('#show_keyboard').fadeIn();
         $('#intext').focus();
     });
+
     $('#show_keyboard').click(function () {
         $.cookie('keybotrain_keyboard_hide', '');
         $('#show_keyboard').hide();
@@ -284,7 +215,9 @@ $(function () {
         $('#show_sound').hide();
         $('#hide_sound').show();
     }
+
     $('#intext').keydown(function (e) {
+        console.log(href);
         var href = $('#refresh').attr('href');
         var type = href.split('_')[1];
         if (e.keyCode == 9 && !e.shiftKey) {
@@ -295,18 +228,19 @@ $(function () {
         }
     }).keyup(function () {
         intext_check();
-    }).blur(function () {
-        blur_timer = window.setTimeout(function () { $('#intext').addClass('blur'); }, 100);
+    //}).blur(function () {
+    //    blur_timer = window.setTimeout(function () { $('#intext').addClass('blur'); }, 100);
     }).focus(function () {
-        intext_notblur();
+        //intext_notblur();
         $('div.wind_sel').fadeOut();
     });
     //if ($.browser.opera) $('#intext').keydown(function () { window.setTimeout(intext_check, 10); });
     $('#textform').submit(function () {
         $('#intext').val($('#intext').val() + '¶');
-
         return false;
     });
+
+
     $('#dict_sel a').click(function () {
         var href = $(this).attr('href');
         $('#intext').val('');
@@ -346,9 +280,14 @@ $(function () {
     get_location();
     dict_start($('#refresh').attr('href'));
 });
+
+
+//my dictoinary in separate window after press OK button
 function my_dict() {
+    console.log('my_dict');
     $('#refresh').attr('href', '#mydict');
     $.cookie('keybotrain_dict', '#mydict');
+    $('#dict_sel_').text('Мой словарь | My dictionary');
     window.location.href = '#mydict';
     $('#dict a').text($('#dict_sel a[href=\\#mydict]').text());
     var text = $('#dict_data').val();
@@ -358,13 +297,17 @@ function my_dict() {
     $('#my_dict').fadeOut();
     $('#intext').focus();
 }
-function intext_notblur() {
-    if (blur_timer != null) {
-        window.clearTimeout(blur_timer);
-        blur_timer = null;
-    }
-    $('#intext').removeClass('blur');
-}
+
+////timer of time when #intext is not blur
+//function intext_notblur() {
+//    console.log(blur_timer);
+//    if (blur_timer != null) {
+//        window.clearTimeout(blur_timer);
+//        blur_timer = null;
+//    }
+//    $('#intext').removeClass('blur');
+//}
+
 function stat_clear() {
     var href = $('#refresh').attr('href');
     $('#question').removeClass('error');
@@ -378,6 +321,7 @@ function stat_clear() {
     else
         $('#error .data').html('<span class="nimp">--/--</span>');
 }
+
 function layout_sel(a) {
     var href = $(a).attr('href');
     var layout = href.substring(1);
@@ -391,41 +335,48 @@ function layout_sel(a) {
 function text2html(text) {
     return text.replace(/</g, '&lt;');
 }
-var left_timer = null;
-function func_left_timer() {
-    var href = $('#refresh').attr('href');
-    var type = href.split('_')[1];
-    $('#intext').val('').data('line', null);
-    if ((!$('#text div.empty').length) || (href == '#numpad') || (type == 'num') || (type == 'basic') || (type == 'begin') || (type == 'speed')) {
-        $('#time').data('time', null);
-        $('#time a').text($('#time').data('minutes'));
-    }
-    intext_check();
-}
-function epo_ikso(intext, line) {
-    var last = intext.substring(intext.length - 1).toLowerCase();
-    var llast = line.substring(intext.length - 1, intext.length).toLowerCase();
-    if ((last == 's' && llast == 'ŝ') || (last == 'g' && llast == 'ĝ') || (last == 'j' && llast == 'ĵ') || (last == 'c' && llast == 'ĉ') || (last == 'h' && llast == 'ĥ') || (last == 'u' && llast == 'ŭ')) {
-        return '';
-    }
-    if (intext.substring(intext.length - 1).toLowerCase() == 'x') {
-        var prev = intext.substring(intext.length - 2, intext.length - 1).toLowerCase();
-        if (prev == 's' || prev == 'g' || prev == 'j' || prev == 'c' || prev == 'h' || prev == 'u') {
-            prev = intext.substring(intext.length - 2, intext.length - 1);
-            prev = prev.replace('S', 'Ŝ').replace('s', 'ŝ');
-            prev = prev.replace('G', 'Ĝ').replace('g', 'ĝ');
-            prev = prev.replace('J', 'Ĵ').replace('j', 'ĵ');
-            prev = prev.replace('C', 'Ĉ').replace('c', 'ĉ');
-            prev = prev.replace('H', 'Ĥ').replace('h', 'ĥ');
-            prev = prev.replace('U', 'Ŭ').replace('u', 'ŭ');
-            intext = intext.substring(0, intext.length - 2) + prev;
-            $('#intext').val(intext);
-            return intext;
-        }
-    }
-    return intext;
-}
+
+////left timer
+//var left_timer = null;
+//function func_left_timer() {
+//    var href = $('#refresh').attr('href');
+//    var type = href.split('_')[1];
+//    $('#intext').val('').data('line', null);
+//    if ((!$('#text div.empty').length) || (href == '#numpad') || (type == 'num') || (type == 'basic') || (type == 'begin') || (type == 'speed')) {
+//        $('#time').data('time', null);
+//        $('#time a').text($('#time').data('minutes'));
+//    }
+//    intext_check();
+//}
+
+////esperanto
+//function epo_ikso(intext, line) {
+//    var last = intext.substring(intext.length - 1).toLowerCase();
+//    var llast = line.substring(intext.length - 1, intext.length).toLowerCase();
+//    if ((last == 's' && llast == 'ŝ') || (last == 'g' && llast == 'ĝ') || (last == 'j' && llast == 'ĵ') || (last == 'c' && llast == 'ĉ') || (last == 'h' && llast == 'ĥ') || (last == 'u' && llast == 'ŭ')) {
+//        return '';
+//    }
+//    if (intext.substring(intext.length - 1).toLowerCase() == 'x') {
+//        var prev = intext.substring(intext.length - 2, intext.length - 1).toLowerCase();
+//        if (prev == 's' || prev == 'g' || prev == 'j' || prev == 'c' || prev == 'h' || prev == 'u') {
+//            prev = intext.substring(intext.length - 2, intext.length - 1);
+//            prev = prev.replace('S', 'Ŝ').replace('s', 'ŝ');
+//            prev = prev.replace('G', 'Ĝ').replace('g', 'ĝ');
+//            prev = prev.replace('J', 'Ĵ').replace('j', 'ĵ');
+//            prev = prev.replace('C', 'Ĉ').replace('c', 'ĉ');
+//            prev = prev.replace('H', 'Ĥ').replace('h', 'ĥ');
+//            prev = prev.replace('U', 'Ŭ').replace('u', 'ŭ');
+//            intext = intext.substring(0, intext.length - 2) + prev;
+//            $('#intext').val(intext);
+//            return intext;
+//        }
+//    }
+//    return intext;
+//}
+
+
 function dict_penalt(index, intext, line, type) {
+    console.log('dict_penalt');
     $('#intext').val('');
     var line_index = $('#question').data('line');
     if (index == $('#question').data('index')) {
@@ -457,10 +408,10 @@ function dict_penalt(index, intext, line, type) {
     }
 }
 function intext_check() {
-    if (left_timer) {
-        window.clearTimeout(left_timer);
-    }
-    left_timer = window.setTimeout(func_left_timer, 15000);
+    //if (left_timer) {
+    //    window.clearTimeout(left_timer);
+    //}
+    //left_timer = window.setTimeout(func_left_timer, 15000);
     var href = $('#refresh').attr('href');
     var lang = href.substring(1).split('_')[0];
     var type = href.split('_')[1];
@@ -468,7 +419,7 @@ function intext_check() {
     var is_change = (intext != $('#intext').data('text'));
     $('#intext').data('text', intext);
     var line1 = $('#text div.line1').text();
-    line1_check = line1.replace(/ /g, ' ');
+    var line1_check = line1.replace(/ /g, ' ');
     if (href == '#numpad') intext = intext.replace(/,/g, '.');
     if (lang == 'eng') intext = intext.replace(/`/g, "'");
     line1_check = line1_check.replace(/ё/g, "е").replace(/Ё/g, "Е");
@@ -615,6 +566,7 @@ function intext_check() {
     if (is_change)
         kbd_hint_timer_init();
 }
+
 function line_errors() {
     var href = $('#refresh').attr('href');
     var type = href.split('_')[1];
@@ -642,6 +594,9 @@ function line_errors() {
         }
     }
 }
+
+
+// set and count statistic function
 function set_stat(text) {
     text = text.replace(/ /g, ' ');
     var href = $('#refresh').attr('href');
@@ -679,17 +634,25 @@ function set_stat(text) {
         var error = ((errors / len) * 10000) / 100;
         var sum_error = ((sum_errors / sum_len) * 10000) / 100;
         if (lang == 'rus' || lang == 'ukr') {
-            $('#speed .data').html((sum_len != len ? '<span class="nimp"><span title="Символов в минуту на предыдущей строке">' + Math.round(speed) + '</span> (<span title="Слов в минуту на предыдущей строке">' + Math.round(speed / 6) + '</span>) / </span>' : '') + '<span title="Всего символов в минуту">' + Math.round(sum_speed) + '</span> (<span title="Всего слов в минуту">' + Math.round(sum_speed / 6) + '</span>' + ((href != '#numpad') && (type != 'num') ? (type != 'code' ? '/<span title="Реальных слов в минуту">' + Math.round(sum_wspeed) + '</span>' : '') : '') + ')');
+            $('#speedometer').html((sum_len != len ? '<span class="nimp"><span title="Символов в минуту на предыдущей строке">' + Math.round(speed) + '</span> (<span title="Слов в минуту на предыдущей строке">' + Math.round(speed / 6) + '</span>) / </span>' : '') + '<span title="Всего символов в минуту">' + Math.round(sum_speed) + '</span> (<span title="Всего слов в минуту">' + Math.round(sum_speed / 6) + '</span>' + ((href != '#numpad') && (type != 'num') ? (type != 'code' ? '/<span title="Реальных слов в минуту">' + Math.round(sum_wspeed) + '</span>' : '') : '') + ')');
         } else {
-            $('#speed .data').html((sum_len != len ? '<span class="nimp"><span title="Last characters per minute">' + Math.round(speed) + '</span> (<span title="Last words per minute">' + Math.round(speed / 6) + '</span>) / </span>' : '') + '<span title="Characters per minute">' + Math.round(sum_speed) + '</span> (<span title="Words per minute">' + Math.round(sum_speed / 6) + '</span>' + ((href != '#numpad') && (type != 'num') ? (type != 'code' ? '/<span title="Real words per minute">' + Math.round(sum_wspeed) + '</span>' : '') : '') + ')');
+            $('#speedometer').html((sum_len != len ? '<span class="nimp"><span title="Last characters per minute">' + Math.round(speed) + '</span> (<span title="Last words per minute">' + Math.round(speed / 6) + '</span>) / </span>' : '') + '<span title="Characters per minute">' + Math.round(sum_speed) + '</span> (<span title="Words per minute">' + Math.round(sum_speed / 6) + '</span>' + ((href != '#numpad') && (type != 'num') ? (type != 'code' ? '/<span title="Real words per minute">' + Math.round(sum_wspeed) + '</span>' : '') : '') + ')');
         }
         if (($('#question').css('visibility') == 'visible') || (type == 'speed')) {
             var sum_lineerror = ((sum_errors / sum_linelen) * 10000) / 100;
-            $('#error .data').html('<span title="' + (lang == 'rus' || lang == 'ukr' ? 'Ошибочных ответов' : 'Error answers') + '">' + Math.round(sum_lineerror) + '%</span> (<span title="' + (lang == 'rus' || lang == 'ukr' ? 'Количество ошибок' : 'Count Errors') + '">' + sum_errors + '</span>/<span title="' + (lang == 'rus' || lang == 'ukr' ? 'Количество слов' : 'Count words') + '">' + sum_linelen + '</span>)');
+            $('#mistake').html('<span title="' + (lang == 'rus' || lang == 'ukr' ? 'Ошибочных ответов' : 'Error answers') + '">' + Math.round(sum_lineerror) + '%</span> (<span title="' + (lang == 'rus' || lang == 'ukr' ? 'Количество ошибок' : 'Count Errors') + '">' + sum_errors + '</span>/<span title="' + (lang == 'rus' || lang == 'ukr' ? 'Количество слов' : 'Count words') + '">' + sum_linelen + '</span>)');
         } else {
-            $('#error .data').html((sum_len != len ? '<span class="nimp"><span title="' + (lang == 'rus' || lang == 'ukr' ? 'Ошибок на предыдущей строке' : 'Errors last') + '">' + error.toFixed(2) + '%</span> / </span>' : '') + '<span title="' + (lang == 'rus' || lang == 'ukr' ? 'Ошибок' : 'Errors') + '">' + sum_error.toFixed(2) + '%</span>');
+            $('#mistake').html((sum_len != len ? '<span class="nimp"><span title="' + (lang == 'rus' || lang == 'ukr' ? 'Ошибок на предыдущей строке' : 'Errors last') + '">' + error.toFixed(2) + '%</span> / </span>' : '') + '<span title="' + (lang == 'rus' || lang == 'ukr' ? 'Ошибок' : 'Errors') + '">' + sum_error.toFixed(2) + '%</span>');
         }
     }
+    //$('#speedometer').append("    ", Math.round(speed), " / ", Math.round(sum_speed));
+    //$('#mistake').append("   ", Math.round(error), " / ", Math.round(sum_error));
+
+    console.log('speed ',  speed);
+    console.log('sum_speed ', sum_speed);
+    console.log('speed ', error);
+    console.log('sum_speed ', sum_error);
+
 }
 var kbd_hint_timer = null;
 function kbd_hint_timer_init() {
@@ -710,7 +673,7 @@ function func_kbd_hint_timer() {
     var lang = href.substring(1).split('_')[0];
     var intext = $('#intext').val();
     var line1 = $('#text div.line1').text().replace(/ /g, ' ');
-    line1_check = line1.replace(/ /g, ' ');
+    var line1_check = line1.replace(/ /g, ' ');
     if (href == '#numpad') intext = intext.replace(/,/g, '.');
     if (lang == 'eng') intext = intext.replace(/`/g, "'");
     line1_check = line1_check.replace(/ё/g, "е").replace(/Ё/g, "Е");
@@ -843,7 +806,7 @@ function func_kbd_hint_timer() {
         var left = $(this).position().left;
         var hnum = 0;
         var lr = $(this).is('.sel_left') ? 'l' : 'r';
-        left_plus = (lr == 'l' ? -30 : 270);
+        var left_plus = (lr == 'l' ? -30 : 270);
         if ($('#keyboard #keybotrain').is(':visible')) {
             lr = 'r';
             left_plus = 20;
@@ -865,7 +828,9 @@ function sel_fn(is_right) {
         $('div.keyboard:visible div.keys:visible div.lfn').addClass('sel');
     }
 }
+
 function get_location() {
+    
     var location = document.location.href;
     var href = $('#refresh').attr('href');
     if (location.indexOf('#') >= 0) {
@@ -881,6 +846,7 @@ function get_location() {
     var minutes = parseInt($('#time a').text(), 10);
     $('#time').data('minutes', minutes);
 }
+
 //function rss_load(name) {
 //    $('#dict').removeClass('error').addClass('wait');
 //    $.ajax({
@@ -1112,6 +1078,7 @@ function num_random() {
     }
     return str + '¶';
 }
+
 function dict_load(name) {
     $('#dict').removeClass('error').addClass('wait');
     $.ajax({
@@ -1128,6 +1095,7 @@ function dict_load(name) {
         }
     });
 }
+
 var dict = [];
 function dict_generate(text) {
     dict_cleardata();
@@ -1459,7 +1427,7 @@ function show_keyboard() {
             }
         }
     } else {
-        for (keyb in keyboards[kbd]) {
+        for (var keyb in keyboards[kbd]) {
             if (!layout) layout = keyb;
             var html = '<div><a href="#' + keyb + '" class="link" onclick="return layout_sel(this);">' + keyb + '</a>';
             if ((lang == 'epo') && (keyb == 'esperanto')) {
@@ -1474,6 +1442,7 @@ function show_keyboard() {
     }
     draw_keyboard(layout);
 }
+
 function draw_keyboard(layout) {
     $('#layout_sel').data('layout', layout);
     var href = $('#refresh').attr('href');

@@ -13,7 +13,7 @@ body {
     font-size: 13px;
     margin: 70px;
     background: #fff;
-    color: #888;
+    color: #444;
 }
 
 a {
@@ -39,20 +39,20 @@ span.select {
     background: url('/Content/images/icons.png') top right no-repeat;
 }
 
-#logo_border {
-    padding-top: 10px;
-    position: relative;
+/*#logo_border {*/
+    /*padding-top: 10px;*/
+    /*position: relative;*/
     /*top: 70px;*/
-    cursor: pointer;
-}
+    /*cursor: pointer;*/
+/*}*/
 
-body.dzen #logo {
-    opacity: 0;
-}
+/*body.dzen #logo {*/
+    /*opacity: 0;*/
+/*}*/
 
-body.dzen #logo_border {
-    outline: 2px solid #eee;
-}
+/*body.dzen #logo_border {*/
+    /*outline: 2px solid #eee;*/
+/*}*/
 
 #content {
     box-sizing: content-box;

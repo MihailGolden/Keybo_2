@@ -18,14 +18,14 @@ namespace Keybo_2.Controllers
             return View();
             }
 
-        public ActionResult About()
+        public ActionResult PersonalPage()
             {
             ViewBag.Message = "Your application description page.";
 
             return View();
             }
 
-        public ActionResult Contact()
+        public ActionResult Rating()
             {
             ViewBag.Message = "Your contact page.";
 

@@ -6,45 +6,55 @@
     <title>@ViewBag.Title - Keybotrain</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
-
-
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
 
 </head>
 <body>
-    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
-        <div class="container">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Keybotrain", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Keybotrain", "Index", "Home", new { area = "" }
+           , new { @class = "navbar-brand", title = "Keyboard trainer \"Keybotrain\" | Клавиатурный тренажер \"Keybotrain\"", style= "text-shadow: #666 0 0 30px;font-weight:bolder;" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Обучение", "Learning", "Home")</li>
-                    <li>@Html.ActionLink("Моя страница", "About", "Home")</li>
-                    <li>@Html.ActionLink("Рейтинг", "Contact", "Home")</li>
+                    <li id="menu_learning">@Html.ActionLink("Обучение", "Learning", "Home")</li>
+                    <li id="personal_page">@Html.ActionLink("Моя страница", "PersonalPage", "Home")</li>
+                    <li id="rating">@Html.ActionLink("Рейтинг", "Rating", "Home")</li>
+                    <li><a href="#" id="hide_all">Hide</a></li>
+                    <li><a></a></li>
                 </ul>
                 @Html.Partial("_LoginPartial")
+                <ul class="nav navbar-nav navbar-right img-circle">
+                    <li><a><img src="~/Content/images/speed.png" heigth="20" width="20"></a></li>
+                    <li><a id="speedometer"></a></li>
+                    <li><a><img src="~/Content/images/mistake.png" heigth="20" width="20"></a></li>
+                    <li><a id="mistake"></a></li>
+                </ul>
+
             </div>
         </div>
     </nav>
 
     @RenderBody()
 
-    <nav class="navbar-fixed-bottom navbar-inverse">
+    <nav class="navbar-default navbar-fixed-bottom">
         <div class="row  text-center">
             <div class="col-md-3">
                 <p>&copy; @DateTime.Now.Year - Keybotrain</p>
             </div>
             <div class="col-md-3">
-                info@keybotrain.com
+                <a mailto="info@keybotrain.com">info@keybotrain.com</a>
             </div>
             <div class="col-md-3">
-                <a href="http://vk.com/keybotrain" target="_blank" onclick="$('#intext').focus();"><img src="https://vk.com/images/vk16.png" alt="" style="width:16px; height:16px; vertical-align:central; margin-right:5px;" />Группа в VK</a>
+                <a href="http://vk.com/keybotrain" target="_blank" onclick="$('#intext').focus();"><img src="~/Content/images/vk_icon.png" alt="" style="width:16px; height:16px; vertical-align:central; margin-right:5px;" />Группа в VK</a>
             </div>
             <div class="col-md-1">
             </div>
@@ -85,11 +95,12 @@
             </div>
         </div>
     </nav>
+    <script src="~/Scripts/jquery.backstretch.min.js"></script>
+    <script>
+    // Устанавливаем изображение, которое будет являться фоном веб-страницы
+        $.backstretch("Content/images/Stewarding Life-gray background.jpg");
+    </script>
 
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
 
 </body>
 </html>

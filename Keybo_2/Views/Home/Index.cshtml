@@ -19,20 +19,61 @@
 
     @*<link rel="alternate" type="application/rss+xml" href="http://keybotrain.com/rss.xml" title="Keybotrain">*@
 
+
+
     <script src="~/Scripts/Keybo.js"></script>
     <link href="~/Content/Keybo.css" rel="stylesheet" />
-
+    <script src="~/Scripts/webspeechkit.js"></script>
 </head>
 <body>
+
+    <div class="btn-group text-center" style="justify-content:center; display: flex;" role="group" aria-label="...">
+        <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select dictonary | Выберите словарь" id="dict_sel_">Выбор | Select<span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="#eng_basic" title="0–59">English start</a></li>
+                <li><a href="#eng_begin" title="60–109">English begin</a></li>
+                <li><a href="#eng_speed" title="110–199">English speed</a></li>
+                <li><a href="#eng_adv" title="200–∞">English training</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#rus_basic" title="0–59">Русский старт</a></li>
+                <li><a href="#rus_begin" title="60–109">Русский начальный</a></li>
+                <li><a href="#rus_speed" title="110–199">Русский скорость</a></li>
+                <li><a href="#rus_adv" title="200–∞">Русский тренировка</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#ukr_basic" title="0–59">Українська стартовий</a></li>
+                <li><a href="#ukr_begin" title="60–109">Українська початковий</a></li>
+                <li><a href="#ukr_speed" title="110–199">Українська швидкість</a></li>
+                <li><a href="#ukr_adv" title="200–∞">Українська тренування</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#num_begin">Numline | Цифровой ряд</a></li>
+                <li><a href="#numpad">Numpad | Цифровой блок</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#mydict" class="link">My text | Мой текст</a></li>
+            </ul>
+        </div>
+        <button type="button" class="btn btn-default">Left</button>
+        <button type="button" class="btn btn-default">Middle</button>
+        <button type="button" class="btn btn-default">Right</button>
+        <button type="button" class="btn btn-default">Right</button>
+        <button type="button" class="btn btn-default">Right</button>
+        <button type="button" class="btn btn-default">Right</button>
+        <button type="button" class="btn btn-default">Right</button>
+        <button type="button" class="btn btn-default">Right</button>
+    </div>
+
+
     <div id="content">
-        <span id="logo_border">
+        @*<span id="logo_border">
             <img src="/Content/images/logo.png" width="74" height="70" alt="keybotrain" id="logo" title="Keyboard trainer &lsquo;Keybotrain&rsquo; | Клавиатурный тренажер &laquo;Keybotrain&raquo;" />
-        </span>
+        </span>*@
+
         <div id="header">
             <div id="dict_sel" class="wind_sel">
                 <span class="close"></span>
                 <div class="head">Learning | Обучение</div>
-                <hr />
+               
                 <div><span>English </span><a href="#eng_basic" title="0&ndash;59">start</a><span>, </span><a href="#eng_begin" title="60&ndash;109">begin</a><span>, </span><a href="#eng_speed" title="110&ndash;199">speed</a><span>, </span><a href="#eng_adv" title="200&ndash;∞">training</a></div>
                 <hr />
                 <div><span>Русский </span><a href="#rus_basic" title="0&ndash;59">стартовый</a><span>, </span><a href="#rus_begin" title="60&ndash;109">начальный</a><span>, </span><a href="#rus_speed" title="110&ndash;199">скорость</a><span>, </span><a href="#rus_adv" title="200&ndash;∞">тренировка</a></div>
@@ -60,7 +101,9 @@
             </a>
             <span id="error" title="Show/hide | Показать/скрыть"><span class="data"><span class="nimp">--</span></span></span>
             <span id="speed" title="Show/hide | Показать/скрыть"><span class="data"><span class="nimp">--</span></span></span>
-            @*<div id="time_sel" class="wind_sel">
+            @*
+                //timer
+                <div id="time_sel" class="wind_sel">
                 <span class="close"></span>
                 <a href="#5" class="link">&nbsp;5</a><br />
                 <a href="#10" class="link">10</a><br />
@@ -68,9 +111,9 @@
                 <a href="#20" class="link">20</a><br />
                 <a href="#30" class="link">30</a><br />
             </div>
-            <div id="time" title="Timer (min) | Таймер (мин)"><a href="#time" class="link">15</a></div>
-        </div>*@
-        <hr />
+            <div id="time" title="Timer (min) | Таймер (мин)"><a href="#time" class="link">15</a></div>*@
+        </div>
+        <hr style="border-top: 3px solid #999;"/>
         <div style="margin-top: 30px;"></div>
         <div id="question" style="visibility: hidden;"></div>
         <form id="textform" action="">
@@ -107,11 +150,14 @@
                     <div class="hand rhand" id="rhand3"></div>
                     <div class="hand rhand" id="rhand4"></div>
                 </div>
+
                 <div id="keyboard" class="keyboard" style="display: none;">
-                    <div id="layout_sel" class="wind_sel">
+                    @*
+                        //close select keyboard menu
+                        <div id="layout_sel" class="wind_sel">
                         <span class="close"></span>
                         <div class="list"><a href="#qwerty">qwerty</a></div>
-                    </div>
+                    </div>*@
                     <div class="keys" id="standart">
                         <div class="line"><div class="f5 sup2">`<sup><sup>~</sup></sup></div><div class="f5 sup">1<sup>!</sup></div><div class="f4 sup">2<sup>&#64</sup></div><div class="f3 sup">3<sup>#</sup></div><div class="f2 sup">4<sup>$</sup></div><div class="f2 sup">5<sup>%</sup></div><div class="f1 sup">6<sup>^</sup></div><div class="f1 sup">7<sup>&amp;</sup></div><div class="f3 sup">8<sup>*</sup></div><div class="f4 sup">9<sup>(</sup></div><div class="f5 sup">0<sup>)</sup></div><div class="f5 sup2">-<sup><sup>_</sup></sup></div><div class="f5 sup">=<sup>+</sup></div><div class="sys backspace off">Backspace</div></div>
                         <div class="line"><div class="sys tab">Tab</div><div class="f5">Q</div><div class="f4">W</div><div class="f3">E</div><div class="f2">R</div><div class="f2">T</div><div class="f1">Y</div><div class="f1">U</div><div class="f3">I</div><div class="f4">O</div><div class="f5">P</div><div class="f5 sup">[<sup>{</sup></div><div class="f5 sup">]<sup>}</sup></div><div class="f5 sup">\<sup>|</sup></div></div>
@@ -145,7 +191,7 @@
             </div>
 
             <p style="margin-top: 10%;"></p>
-            <hr/>
+         
 
             <audio id="beep">             
                     <source src="~/Content/Sounds/beep.mp3" type="audio/mpeg" />
