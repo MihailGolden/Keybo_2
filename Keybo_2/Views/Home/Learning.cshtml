@@ -1,8 +1,16 @@
 ﻿@{
     ViewBag.Title = "Learning";
     Layout = "~/Views/Shared/_Layout.cshtml";
+   //Layout = null;
+
+
+
 }
 <head>
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+
     <style>
         hr {
             border-color: lightgray;
@@ -21,17 +29,21 @@
 
         #img {
             margin-top:30px;
-        }
+        } 
     </style>
-    @*<script src="~/Scripts/jquery-3.1.1.min.js"></script>*@
     <script>
         $('#menu_learning').addClass('active');
     </script>
 </head>
 <body>
+
+    
     <h1>
         Обучение слепому методу печати
     </h1>
+
+
+
     <p>
         В основу слепого набора положен тот факт, что за каждым пальцем закреплена своя постоянная зона клавиш, которую тот обслуживает. Весь процесс обучения сводится к тренировке "мышечной памяти" пальцев. Если заниматься регулярно (желательно 2-3 раза в день), то уже очень скоро можно будет хорошо печатать десятью пальцами, не глядя на клавиатуру.
     </p>

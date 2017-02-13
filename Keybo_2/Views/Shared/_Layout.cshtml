@@ -21,18 +21,76 @@
                     <span class="icon-bar"></span>
                 </button>
                 @Html.ActionLink("Keybotrain", "Index", "Home", new { area = "" }
-           , new { @class = "navbar-brand", title = "Keyboard trainer \"Keybotrain\" | Клавиатурный тренажер \"Keybotrain\"", style= "text-shadow: #666 0 0 30px;font-weight:bolder;" })
+           , new { @class = "navbar-brand", title = "Keyboard trainer \"Keybotrain\" | Клавиатурный тренажер \"Keybotrain\"", style = "text-shadow: #666 0 0 30px;font-weight:bolder;" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li id="menu_learning">@Html.ActionLink("Обучение", "Learning", "Home")</li>
                     <li id="personal_page">@Html.ActionLink("Моя страница", "PersonalPage", "Home")</li>
                     <li id="rating">@Html.ActionLink("Рейтинг", "Rating", "Home")</li>
-                    <li><a href="#" id="hide_all">Hide</a></li>
-                    <li><a></a></li>
+                    @*<li><a href="#" id="hide_all">Hide</a></li>*@
+                   
+                    <li class="dropdown nav_menu_show" style="display: none;">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" title="Select dictonary | Выберите словарь" id="dict_sel_">Выбор | Select<span class="caret"></span></a>
+                                <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                                     <li class="dropdown-submenu">
+                                        <a tabindex="-1" href="" title="English keyboard">English</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a tabindex="-1" href="#eng_basic" title="0–59">English start</a></li>
+                                            <li><a tabindex="-1" href="#eng_begin" title="60–109">English begin</a></li>
+                                            <li><a tabindex="-1" href="#eng_speed" title="110–199">English speed</a></li>
+                                            <li><a tabindex="-1" href="#eng_adv" title="200–∞">English training</a></li>
+                                        </ul>
+                                    </li>
+                                    <li role="separator" class="divider">asdfasd</li>
+                                    <li class="dropdown-submenu">
+                                        <a tabindex="-1" href="" title="Русская раскладка">Русский</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a tabindex="-1" href="#rus_basic" title="0–59">Русский старт</a></li>
+                                            <li><a tabindex="-1" href="#rus_begin" title="60–109">Русский начальный</a></li>
+                                            <li><a tabindex="-1" href="#rus_speed" title="110–199">Русский скорость</a></li>
+                                            <li><a tabindex="-1" href="#rus_adv" title="200–∞">Русский тренировка</a></li>
+                                        </ul>
+                                    </li>
+                                    <li role="separator" class="divider"></li>
+                                    <li class="dropdown-submenu">
+                                        <a tabindex="-1" href="" title="Українська">Українська</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a tabindex="-1" href="#ukr_basic" title="0–59">Українська стартовий</a></li>
+                                            <li><a tabindex="-1" href="#ukr_begin" title="60–109">Українська початковий</a></li>
+                                            <li><a tabindex="-1" href="#ukr_speed" title="110–199">Українська швидкість</a></li>
+                                            <li><a tabindex="-1" href="#ukr_adv" title="200–∞">Українська тренування</a></li>
+                                        </ul>
+                                    </li>
+                                    <li role="separator" class="divider"></li>
+                                    <li class="dropdown-submenu">
+                                        <a href="">Dictionary | Словарь</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#rus_dict_eng_top">Start (eng / рус)</a></li>
+                                            <li><a href="#eng_dictrev_rus_top">Start (рус / eng)</a></li>
+                                            <li><a href="#rus_dict_eng_top2">Middle (eng / рус)</a></li>
+                                            <li><a href="#eng_dictrev_rus_top2">Middle (рус / eng)</a></li>
+                                            <li><a href="#rus_dict_eng">Business (eng / рус)</a></li>
+                                            <li><a href="#eng_dictrev_rus">Business (рус / eng)</a></li>
+                                        </ul>
+                                    </li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#num_begin">Numline | Цифровой ряд</a></li>
+                                    <li><a href="#numpad">Numpad | Цифровой блок</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#mydict" class="link">My text | Мой текст</a></li>
+                                </ul>
+                        </li>
+
+                    <li>
+                        <a>
+                            <img src="~/Content/images/Refresh.png" width="20"/>
+                        </a>
+                    </li>
+
                 </ul>
                 @Html.Partial("_LoginPartial")
-                <ul class="nav navbar-nav navbar-right img-circle">
+                <ul style="display: none;" class="nav navbar-nav navbar-right img-circle nav_menu_show">
                     <li><a><img src="~/Content/images/speed.png" heigth="20" width="20"></a></li>
                     <li><a id="speedometer"></a></li>
                     <li><a><img src="~/Content/images/mistake.png" heigth="20" width="20"></a></li>
@@ -95,11 +153,7 @@
             </div>
         </div>
     </nav>
-    <script src="~/Scripts/jquery.backstretch.min.js"></script>
-    <script>
-    // Устанавливаем изображение, которое будет являться фоном веб-страницы
-        $.backstretch("Content/images/Stewarding Life-gray background.jpg");
-    </script>
+
 
 
 </body>

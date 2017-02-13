@@ -219,6 +219,9 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\Icons_release.png" />
+    <Content Include="Content\images\Icons_release_100.png" />
+    <Content Include="Content\images\Refresh.png" />
     <Content Include="Content\images\speed.png" />
     <Content Include="Content\images\grey-ppt-background-9.jpg" />
     <Content Include="Content\images\hands.png" />
@@ -235,7 +238,7 @@
     <Content Include="Content\images\logo200.png" />
     <Content Include="Content\images\favicon.ico" />
     <Content Include="Content\images\paper-backgrounds-gray-cardboard-paper-texture-hd.jpg" />
-    <Content Include="Content\images\Stewarding Life-gray background.jpg" />
+    <Content Include="Content\images\Gray_wallpaper.jpg" />
     <Content Include="Content\images\mistake.png" />
     <Content Include="Content\Sounds\beep.mp3" />
     <Content Include="Content\Keybo.css" />
