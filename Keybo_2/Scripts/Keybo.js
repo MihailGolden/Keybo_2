@@ -21,23 +21,38 @@ var keyboards = {
 				'Я', 'Ч', 'С', 'М', 'І', 'Т', 'Ь', 'Б', 'Ю', 'Ї']
     }
 };
-
-var lang = { eng, rus, ukr};
-
-
-//beeper
+var language = ['eng', 'rus', 'eng'];
+var audition = false;
 var beep = true;
+var ShowKeyboardColor = false;
+var showHands = false;
+var showKeyboard = true;
+var autoBackspace = true;
+var showNumKeyboard = false;
+
+var blur_timer = null;
+
+var tts = false;
+
+
+//tts.speak(
+//  // Текст для озвучивания.
+//  'Меня зовут Вася',
+//  // Переопределяем настройки синтеза.
+//  {
+//      // Имя диктора.
+//      speaker: 'jane',
+//      // Эмоции в голосе. 
+//      emotion: 'neutral',
+//      // Функция-обработчик, которая будет вызвана по завершении озвучивания.
+//      stopCallback: function () {
+//          console.log("Озвучивание текста завершено.");
+//      }
+//  }
+//)
 
 
 
-
-
-
-
-
-
-
-//var blur_timer = null;
 
 
 $.cookie = function (name, value, options) {
@@ -72,51 +87,26 @@ $.cookie = function (name, value, options) {
 };
 
 
+  
 
 $(function () {
 
-    //var tts = new ya.speechkit.Tts(
-    //  // Настройки синтеза. Список доступных настроек см. в справочнике.
-    //  {
-    //      // API-ключ. Может быть задан глобально через объект ya.speechkit.settings.
-    //      apikey: 'b332723f-d4d3-45cb-8c13-6416f0f17331',
-    //      // Эмоциональная окраска: добрый голос.
-    //      emotion: 'good',
-    //      // Скорость речи.
-    //      speed: 1,
-    //      // Имя диктора.
-    //      speaker: 'jane'
-    //  }
-    //);
-
-    //tts.speak(
-    //  // Текст для озвучивания.
-    //  'Меня зовут Вася',
-    //  // Переопределяем настройки синтеза.
-    //  {
-    //      // Имя диктора.
-    //      speaker: 'jane',
-    //      // Эмоции в голосе. 
-    //      emotion: 'neutral',
-    //      // Функция-обработчик, которая будет вызвана по завершении озвучивания.
-    //      stopCallback: function () {
-    //          console.log("Озвучивание текста завершено.");
-    //      }
-    //  }
-    //)
-
+        tts = new ya.speechkit.Tts({
+            apikey: 'b332723f-d4d3-45cb-8c13-6416f0f17331'
+        });
+        console.log("tts created f");
 
 
     //beeper where mistake
-        beep = $("#beep").get(0);
-        $('#error, #speed').click(function () {
+    beep = $("#beep").get(0);
+    $('#error, #speed').click(function () {
         $.cookie('keybotrain_speed_error', $('#error .data').has(':visible') ? 'no' : 'yes');
         $('#error .data, #speed .data').fadeToggle();
         $('#intext').focus();
     });
-        //if ($.cookie('keybotrain_speed_error') == 'no') {
-       // $('#hide_keyboard').hide();
-       // $('#error .data, #speed .data').hide();
+    //if ($.cookie('keybotrain_speed_error') == 'no') {
+    // $('#hide_keyboard').hide();
+    // $('#error .data, #speed .data').hide();
     //}
     //$('div.title, span.title');
     $('#text div').addClass('empty');
@@ -124,8 +114,8 @@ $(function () {
 
     //timer
     //$('#time_sel .close').click(function () {
-      //  $('#time_sel').fadeOut();
-       // $('#intext').focus();
+    //  $('#time_sel').fadeOut();
+    // $('#intext').focus();
     //});
 
     //$('#time a').click(function () {
@@ -135,12 +125,15 @@ $(function () {
     //    return false;
     //});
 
+    
+
+
 
     ////close select language menu
-    //$('#dict_sel .close').click(function () {
-    //    $('#dict_sel').fadeOut();
-    //    $('#intext').focus();
-    //});
+    $('#_dict_sel .close').click(function () {
+        ///// $('#_dict_sel').fadeOut();
+        $('#intext').focus();
+    });
 
     ////close select keyboard type menu
     //$('#layout_sel .close').click(function () {
@@ -159,14 +152,14 @@ $(function () {
     });
 
     $('#dict a').click(function () {
-        //intext_notblur();
+        intext_notblur();
         $('div.wind_sel').fadeOut();
-        $('#dict_sel').fadeIn();
+        /////$('#_dict_sel').fadeIn();
         return false;
     });
 
     $('#layout a').click(function () {
-        //intext_notblur();
+        intext_notblur();
         $('div.wind_sel').fadeOut();
         $('#layout_sel').fadeIn();
         return false;
@@ -226,12 +219,14 @@ $(function () {
         intext_check();
         $('#intext').focus();
     });
+
     $('#hide_sound').click(function () {
         $.cookie('keybotrain_sound_show', '');
         $('#hide_sound').hide();
         $('#show_sound').fadeIn();
         $('#intext').focus();
     });
+
     $('#show_sound').click(function () {
         $.cookie('keybotrain_sound_show', 'yes');
         $('#show_sound').hide();
@@ -240,6 +235,7 @@ $(function () {
         intext_check();
         $('#intext').focus();
     });
+
     if ($.cookie('keybotrain_autobackspace') == 'no') {
         $('#hide_autobackspace').hide();
         $('#show_autobackspace').show();
@@ -277,7 +273,7 @@ $(function () {
 
     $('#intext').keydown(function (e) {
         //console.log("keydown", e.keyCode);
-        var href = $('#refresh').attr('href');
+        var href = $('#_refresh').attr('href');
         var type = href.split('_')[1];
         if (e.keyCode == 9 && !e.shiftKey) {
             return false;
@@ -287,10 +283,10 @@ $(function () {
         }
     }).keyup(function () {
         intext_check();
-    //}).blur(function () {
-    //    blur_timer = window.setTimeout(function () { $('#intext').addClass('blur'); }, 100);
+    }).blur(function () {
+        blur_timer = window.setTimeout(function () { $('#intext').addClass('blur'); }, 100);
     }).focus(function () {
-        //intext_notblur();
+        intext_notblur();
         $('div.wind_sel').fadeOut();
     });
     //if ($.browser.opera) $('#intext').keydown(function () { window.setTimeout(intext_check, 10); });
@@ -299,14 +295,20 @@ $(function () {
     $('#textform').submit(function () {
         $('#intext').val($('#intext').val() + '¶');
         return false;
-        console.log($('#intext').val());
+        //console.log($('#intext').val());
     });
 
 
-    $('#dict_sel a').click(function () {
+    $('#_dict_sel a').click(function () {
         var href = $(this).attr('href');
-        $('#intext').val('');
+        $('#intext').val(' ');
+        //
+        console.log("$('#_dict_sel a').click(function ()", href);
+        if (href == '#') { }
+        else {
+        //speak();
         return dict_start(href);
+    }
     });
 
 
@@ -330,34 +332,139 @@ $(function () {
     $(window).resize(function () {
         kbd_hint_timer_init();
     });
-    $('#refresh').click(function () {
+
+    $('#_refresh').click(function () {
         dict_refresh();
         $('#intext').focus();
+        speak();
         return false;
     });
+
     $('#my_dict_ok').click(function () {
         my_dict();
         return false;
     });
+
     $('<img src="/Content/images/wait.gif">');
 
     get_location();
-    dict_start($('#refresh').attr('href'));
+    dict_start($('#_refresh').attr('href'));
 
-    console.log("sdf");
-    console.log($('.line1').toString);
+    // console.log("sdf");
+    //console.log($('.line1').toString);
+
+    $('#textform').keydown(function (e) {
+        console.log("keydown", e.which);
+        if (e.which == '32' || e.which == '13') {
+            var href = document.location.hash;
+            var lang = href.substring(1).split('_')[0];
+            var type = href.split('_')[1];
+            console.log("type", type);
+            //if (type == 'basic' || type == 'speed') {
+            //    speak();
+            //}
+            if (type == 'begin' || type == 'adv' || type == 'basic' || type == 'speed') {
+                var speak_words = $('#text .line1').text().replace(/\s/g, ' ');
+                console.log('speak_words', speak_words);
+                var word_checked = $('#text .checked').text().replace(/\s/g, ' ');
+
+                //var word_checked = $('#text .checked').text().split(/[\s\!,\.\?]+/g).pop();
+                var word_unchecked = speak_words.replace(word_checked, '');
+                console.log('word_checked', word_checked);
+                console.log('word_unchecked', word_unchecked);
+                var word_checked_split = word_checked.split(' ');
+                var word_unchecked_split = word_unchecked.split(' ');
+                var sound = '';
+                if (word_unchecked == ' ') {
+                    dict_refresh();
+                }
+                if (word_unchecked.startsWith(' ')) {
+                    console.log('(word_unchecked.startsWith(\' \'');
+                    sound = word_unchecked_split[1];
+                    console.log("sound", sound);
+                } else {
+                    console.log('(word_unchecked.DO NOT startsWith(\' \'');
+
+                    sound = word_checked_split.pop() + word_unchecked_split.shift();
+                    console.log("sound", sound);
+                }
+
+                //var splited = speak_words.split(' ');
+                //var text = splited[1];
+                //console.log("sadfasdfa", text);
+                speak(sound);
+            }
+
+        }
+    });
+
 });
 
+window.onload = function () {
+    speak();
+}
 
-//my dictoinary in separate window after press OK button
+
+function speak(text) {
+    var speak_words = $('#text .line1').text().replace(/\s/g, ' ');
+    var splited = speak_words.split(' ');
+    if (splited[0] == splited[1])
+        speak_words = splited[0];
+    var href = document.location.hash;
+    console.log("href ", href);
+    var lang = href.substring(1).split('_')[0];
+    console.log("lang", lang);
+    console.log("splited [0] ", splited[0]);
+    if (text) {
+        console.log("text", text);
+        speak_words = text;
+    }
+    //langiage determining
+    var lang_ya = 'en-US';
+    //var lang_yandex_choice = ['ru-RU', 'en-US', 'uk-UA'];
+    switch (lang) {
+        case 'eng':
+            lang_ya = 'en-US';
+            break;
+        case 'rus':
+            lang_ya = 'ru-RU';
+            break;
+        case 'ukr':
+            lang_ya = 'uk-UA';
+            break;
+        default:
+            lang_ya = 'en-US';
+    }
+    console.log("lang_ya", lang_ya);
+
+    tts.speak(speak_words,
+            {
+            speed: 0.9,
+            lang: lang_ya,
+            // Имя диктора.
+            speaker: 'zahar',
+            // Эмоции в голосе. 
+            emotion: 'good',
+            // Функция-обработчик, которая будет вызвана по завершении озвучивания.
+            stopCallback: function () {
+                console.log("Озвучивание текста завершено.", speak_words);
+            }
+        })
+    }
+
+
+//0 my dictoinary in separate window after press OK button
 function my_dict() {
-    console.log('my_dict');
-    $('#refresh').attr('href', '#mydict');
+    //console.log('my_dict');
+    $('#_refresh').attr('href', '#mydict');
     $.cookie('keybotrain_dict', '#mydict');
-    $('#dict_sel_').text('Мой словарь | My dictionary');
+    $('#_dict_sel a').text('Мой словарь | My dictionary');
     window.location.href = '#mydict';
-    $('#dict a').text($('#dict_sel a[href=\\#mydict]').text());
+    $('#dict a').text($('#_dict_sel a[href=\\#mydict]').text());
     var text = $('#dict_data').val();
+    console.log("text 408", text);
+
+    
     dict_cleardata();
     dict_generate(text);
     intext_check();
@@ -383,7 +490,7 @@ function text2html(text) {
 
 //learning words method
 function dict_penalt(index, intext, line, type) {
-    console.log('dict_penalt');
+    //console.log('dict_penalt');
     $('#intext').val('');
     var line_index = $('#question').data('line');
     if (index == $('#question').data('index')) {
@@ -419,54 +526,22 @@ function dict_penalt(index, intext, line, type) {
 }
 
 
+
 function intext_check() {
     //if (left_timer) {
     //    window.clearTimeout(left_timer);
     //}
     //left_timer = window.setTimeout(func_left_timer, 15000);
-    var href = $('#refresh').attr('href');
+    var href = $('#_refresh').attr('href');
     var lang = href.substring(1).split('_')[0];
     var type = href.split('_')[1];
     var intext = $('#intext').val();
-
     var is_change = (intext != $('#intext').data('text'));
     $('#intext').data('text', intext);
     var line1 = $('#text div.line1').text();
 
-    //
-    console.log("intext_check()", line1);
 
-
-    var tts = new ya.speechkit.Tts(
-  // Настройки синтеза. Список доступных настроек см. в справочнике.
-  {
-      lang: 'en-US',
-      // API-ключ. Может быть задан глобально через объект ya.speechkit.settings.
-      apikey: 'b332723f-d4d3-45cb-8c13-6416f0f17331',
-      // Эмоциональная окраска: добрый голос.
-      emotion: 'good',
-      // Скорость речи.
-      speed: 1,
-      // Имя диктора.
-      speaker: 'zahar'
-  }
-);
-    tts.speak(
-      // Текст для озвучивания.
-      line1,
-      // Переопределяем настройки синтеза.
-      {
-          // Имя диктора.
-          speaker: 'zahar',
-          // Эмоции в голосе. 
-          emotion: 'neutral',
-          // Функция-обработчик, которая будет вызвана по завершении озвучивания.
-          stopCallback: function () {
-              console.log("Озвучивание текста завершеноdfh.");
-          }
-      }
-    )
-    //
+    ////////////////////////
 
     var line1_check = line1.replace(/ /g, ' ');
     if (href == '#numpad') intext = intext.replace(/,/g, '.');
@@ -614,12 +689,13 @@ function intext_check() {
     }
     if (is_change)
         kbd_hint_timer_init();
-    console.log("sdf");
-    console.log($('.line1'));
+    console.log("text", text);
+    //console.log("sdf");
+    //console.log($('.line1'));
 }
 
 function line_errors() {
-    var href = $('#refresh').attr('href');
+    var href = $('#_refresh').attr('href');
     var type = href.split('_')[1];
     if ((type != 'speed') && (type != 'begin') && (type != 'dict') && (type != 'dictrev')) {
         var sym_errors = $('#text').data('sym_errors') ? $('#text').data('sym_errors') : [];
@@ -631,6 +707,8 @@ function line_errors() {
             var ret = '';
             var checked = $('#text div.line' + index + ' span.checked').text();
             var text = $('#text div.line' + index).text().substring(checked.length);
+            console.log("text 653", text);
+            //speak(text);
             for (var i = 0; i < text.length; i++) {
                 var symbol = text.substring(i, i + 1);
                 if (error_symbols[symbol.toLowerCase()] > 0) {
@@ -650,7 +728,7 @@ function line_errors() {
 // set and count statistic function
 function set_stat(text) {
     text = text.replace(/ /g, ' ');
-    var href = $('#refresh').attr('href');
+    var href = $('#_refresh').attr('href');
     var lang = href.split('_')[0].substring(1);
     var type = href.split('_')[1];
     var errors = $('#intext').data('errors');
@@ -699,7 +777,7 @@ function set_stat(text) {
     //$('#speedometer').append("    ", Math.round(speed), " / ", Math.round(sum_speed));
     //$('#mistake').append("   ", Math.round(error), " / ", Math.round(sum_error));
 
-    console.log('speed ',  speed);
+    console.log('speed ', speed);
     console.log('sum_speed ', sum_speed);
     console.log('speed ', error);
     console.log('sum_speed ', sum_error);
@@ -722,7 +800,7 @@ function kbd_hint_timer_init() {
 }
 function func_kbd_hint_timer() {
     var layout = $('#layout_sel').data('layout');
-    var href = $('#refresh').attr('href');
+    var href = $('#_refresh').attr('href');
     var lang = href.substring(1).split('_')[0];
     var intext = $('#intext').val();
     var line1 = $('#text div.line1').text().replace(/ /g, ' ');
@@ -883,9 +961,8 @@ function sel_fn(is_right) {
 }
 
 function get_location() {
-    
     var location = document.location.href;
-    var href = $('#refresh').attr('href');
+    var href = $('#_refresh').attr('href');
     if (location.indexOf('#') >= 0) {
         href = location.substring(location.indexOf('#'));
     } else if ($.cookie('keybotrain_dict')) {
@@ -893,7 +970,7 @@ function get_location() {
     } else {
         href = '#eng_basic';
     }
-    $('#refresh').attr('href', href);
+    $('#_refresh').attr('href', href);
     $.cookie('keybotrain_dict', href);
     document.location.href = href;
     var minutes = parseInt($('#time a').text(), 10);
@@ -907,7 +984,7 @@ function dict_start(href) {
     $('#time').data('time', null);
     $('#time a').text($('#time').data('minutes'));
     if (href == '#lang_select') {
-        $('#dict_sel').show();
+        ///// $('#_dict_sel').show();
         return false;
     } else if (href == '#mydict') {
         dict_mytext();
@@ -915,50 +992,58 @@ function dict_start(href) {
     } else if (lang == 'rss') {
         $('#question').text('');
 
-        var text = ($('#dict_sel a[href=\\' + href + ']').parent('div').find('span').length ? $('#dict_sel a[href=\\' + href + ']').parent('div').find('span').eq(0).text() : '') + $('#dict_sel a[href=\\' + href + ']').text();
+        var text = ($('#_dict_sel a[href=\\' + href + ']').parent('div').find('span').length ? $('#_dict_sel a[href=\\' + href + ']').parent('div').find('span').eq(0).text() : '') + $('#_dict_sel a[href=\\' + href + ']').text();
+        console.log("text 940", text);
+
         if (!text) text = 'Error | Ошибка';
         $('#dict a').text(text);
-        $('#refresh').attr('href', href);
+        $('#_refresh').attr('href', href);
         $.cookie('keybotrain_dict', href);
-        $('#dict_sel').fadeOut();
-        stat_clear();
+        ///// $('#_dict_sel').fadeOut();
+        //stat_clear();
         rss_load(type);
         $('#intext').focus();
         return true;
     } else if (href == '#numpad') {
         $(document.body).removeClass('dict');
-        var text = ($('#dict_sel a[href=\\' + href + ']').parent('div').find('span').length ? $('#dict_sel a[href=\\' + href + ']').parent('div').find('span').eq(0).text() : '') + $('#dict_sel a[href=\\' + href + ']').text();
+        var text = ($('#_dict_sel a[href=\\' + href + ']').parent('div').find('span').length ? $('#_dict_sel a[href=\\' + href + ']').parent('div').find('span').eq(0).text() : '') + $('#_dict_sel a[href=\\' + href + ']').text();
+        console.log("text 955", text);
+
         $('#dict a').text(text);
-        $('#refresh').attr('href', href);
+        $('#_refresh').attr('href', href);
         $.cookie('keybotrain_dict', href);
-        $('#dict_sel').fadeOut();
+        /////$('#_dict_sel').fadeOut();
         dict_cleardata();
-        stat_clear();
+        //stat_clear();
         dict_numpad();
         $('#intext').focus();
         return true;
     } else if (type == 'num') {
         $(document.body).removeClass('dict');
-        var text = ($('#dict_sel a[href=\\' + href + ']').parent('div').find('span').length ? $('#dict_sel a[href=\\' + href + ']').parent('div').find('span').eq(0).text() : '') + $('#dict_sel a[href=\\' + href + ']').text();
+        var text = ($('#_dict_sel a[href=\\' + href + ']').parent('div').find('span').length ? $('#_dict_sel a[href=\\' + href + ']').parent('div').find('span').eq(0).text() : '') + $('#_dict_sel a[href=\\' + href + ']').text
+        console.log("text 968", text);
+
         if (!text) text = 'Error | Ошибка';
         $('#dict a').text(text);
-        $('#refresh').attr('href', href);
+        $('#_refresh').attr('href', href);
         $.cookie('keybotrain_dict', href);
-        $('#dict_sel').fadeOut();
+        $('#_dict_sel').fadeOut();
         dict_cleardata();
-        stat_clear();
+        //stat_clear();
         dict_num();
         $('#intext').focus();
         return true;
     } else {
         $('#question').text('');
-        var text = ($('#dict_sel a[href=\\' + href + ']').parent('div').find('span').length ? $('#dict_sel a[href=\\' + href + ']').parent('div').find('span').eq(0).text() : '') + $('#dict_sel a[href=\\' + href + ']').text();
+        var text = ($('#_dict_sel a[href=\\' + href + ']').parent('div').find('span').length ? $('#_dict_sel a[href=\\' + href + ']').parent('div').find('span').eq(0).text() : '') + $('#_dict_sel a[href=\\' + href + ']').text();
+        console.log("text 983", text);
+
         if (!text) text = 'Error | Ошибка';
         $('#dict a').text(text);
-        $('#refresh').attr('href', href);
+        $('#_refresh').attr('href', href);
         $.cookie('keybotrain_dict', href);
-        $('#dict_sel').fadeOut();
-        stat_clear();
+        ///// $('#_dict_sel').fadeOut();
+        //stat_clear();
         if (type == 'dictrev') {
             var hrefs = href.substring(1).split('_');
             href = '#' + hrefs[2] + '_dict_' + hrefs[0] + (hrefs[3] ? '_' + hrefs[3] : '');
@@ -988,7 +1073,7 @@ function dict_cleardata() {
 }
 function dict_refresh() {
     $('#intext').val('').data('text', ' ');
-    var href = $('#refresh').attr('href');
+    var href = $('#_refresh').attr('href');
     var lang = href.substring(1).split('_')[0];
     var type = href.split('_')[1];
     $('#time').data('time', null);
@@ -1033,12 +1118,15 @@ function dict_refresh() {
         }
     }
 }
+
+//0 show window for input my text
 function dict_mytext() {
-    $('#dict_sel').fadeOut();
+    ///// $('#_dict_sel').fadeOut();
     $('#my_dict').fadeIn(function () {
         $('#dict_data').focus();
     });
 }
+
 function dict_numpad() {
     dict_cleardata();
     $('#text div.line1').html(numpad_random()).removeClass('empty');
@@ -1136,7 +1224,7 @@ function dict_load(name) {
 var dict = [];
 function dict_generate(text) {
     dict_cleardata();
-    var href = $('#refresh').attr('href');
+    var href = $('#_refresh').attr('href');
     var lang = href.split('_')[0].substring(1);
     var type = href.split('_')[1];
     if ((type == 'dict') || (type == 'dictrev')) $(document.body).addClass('dict'); else $(document.body).removeClass('dict');
@@ -1161,22 +1249,15 @@ function show_relax() {
     $('#text div').html('').addClass('empty');
     show_relax_text(3);
 }
-function show_relax_text(num) {
-    var href = $('#refresh').attr('href');
-    var lang = href.split('_')[0].substring(1);
-    if (lang == 'rus' || lang == 'ukr') {
-        $('#text div.line' + num).html('Отдохните сейчас. <a href="#next" class="link" onclick="return dict_next();">Продолжить</a>').removeClass('empty');
-    } else if (lang == 'epo') {
-        $('#text div.line' + num).html('Ripozu nun. <a href="#next" class="link" onclick="return dict_next();">Daŭrigi</a>').removeClass('empty');
-    } else {
-        $('#text div.line' + num).html('Relax now. <a href="#next" class="link" onclick="return dict_next();">Continue</a>').removeClass('empty');
-    }
-}
+
+
+
 function trim(str) {
     return str.replace(/(^\s+)|(\s+$)/g, '');
 }
+
 function text_generate() {
-    var href = $('#refresh').attr('href');
+    var href = $('#_refresh').attr('href');
     var lang = href.split('_')[0].substring(1);
     var type = href.split('_')[1];
 
@@ -1243,6 +1324,8 @@ function text_generate() {
             var eq = line.split('=');
             var ans = eq[1].split(';');
             var text = trim(ans[random(ans.length)]);
+            console.log("text 1270", text);
+
             if (text.length > 80) {
                 var pos = line.substring(0, 79).lastIndexOf(' ');
                 if (pos >= 0) {
@@ -1275,6 +1358,7 @@ function text_generate() {
             var index = rand_dict(notin);
             if (lang == 'epo') {
                 var word = trim(dict[index].split('=')[0]);
+                console.log("1305", word);
                 var start = index;
                 var tl = tword.substring(tword.length - 1);
                 while (word.substring(word.length - 1) != tl || (notin.indexOf('|' + index + '|') >= 0)) {
@@ -1288,6 +1372,8 @@ function text_generate() {
             var line = dict[index];
             var eq = line.split('=');
             var text = trim(eq[0]);
+            console.log("text 1317", text);
+
             if (text.length > 80) {
                 var pos = line.substring(0, 79).lastIndexOf(' ');
                 if (pos >= 0) {
@@ -1307,6 +1393,7 @@ function text_generate() {
         var index = rand_dict('');
         var words = dict[index].split(' ');
         var word = words[random(words.length)];
+        console.log("1340", word);
         if (random(10) == 0) word = word + ',';
         else if (random(30) == 0) word = word + '.';
         else if (random(60) == 0) word = word + ':';
@@ -1433,8 +1520,10 @@ function text_generate() {
             }
         }
     }
+    console.log("1467", word, tword);
     intext_check();
 }
+
 function rand_dict(notin) {
     if (!dict.length) return -1;
     var index = random(dict.length);
@@ -1448,7 +1537,7 @@ function rand_dict(notin) {
 }
 
 function show_keyboard() {
-    var href = $('#refresh').attr('href');
+    var href = $('#_refresh').attr('href');
     var lang = href.split('_')[0].substring(1);
     var kbd = href.split('_')[0].substring(1);
     if (!keyboards[kbd]) kbd = '';
@@ -1482,7 +1571,7 @@ function show_keyboard() {
 
 function draw_keyboard(layout) {
     $('#layout_sel').data('layout', layout);
-    var href = $('#refresh').attr('href');
+    var href = $('#_refresh').attr('href');
     var lang = href.split('_')[0].substring(1);
     $('#layout a').text(layout);
     var kbd = href.split('_')[0].substring(1);
@@ -1540,7 +1629,7 @@ function draw_keyboard(layout) {
 ////left timer
 //var left_timer = null;
 //function func_left_timer() {
-//    var href = $('#refresh').attr('href');
+//    var href = $('#_refresh').attr('href');
 //    var type = href.split('_')[1];
 //    $('#intext').val('').data('line', null);
 //    if ((!$('#text div.empty').length) || (href == '#numpad') || (type == 'num') || (type == 'basic') || (type == 'begin') || (type == 'speed')) {
@@ -1575,30 +1664,30 @@ function draw_keyboard(layout) {
 //    return intext;
 //}
 
-////timer of time when #intext is not blur
-//function intext_notblur() {
-//    console.log(blur_timer);
-//    if (blur_timer != null) {
-//        window.clearTimeout(blur_timer);
-//        blur_timer = null;
-//    }
-//    $('#intext').removeClass('blur');
-//}
+//timer of time when #intext is not blur
+function intext_notblur() {
+    //console.log(blur_timer);
+    if (blur_timer != null) {
+        window.clearTimeout(blur_timer);
+        blur_timer = null;
+    }
+    $('#intext').removeClass('blur');
+}
 
 //Clear ststistic function
-function stat_clear() {
-    var href = $('#refresh').attr('href');
-    $('#question').removeClass('error');
-    $('#intext').removeClass('error');
-    $('#intext').val('').data('start', null).data('errors', null).data('sum_linelen', 0).data('sum_len', 0).data('sum_errors', null).data('sum_time', null).data('sum_words', 0);
-    $('#text').removeClass('error');
-    $('#text div').html('').addClass('empty');
-    $('#speed .data').html('<span class="nimp">--/--</span>');
-    if ($('#question').css('visibility') == 'visible')
-        $('#error .data').html('0%');
-    else
-        $('#error .data').html('<span class="nimp">--/--</span>');
-}
+//function stat_clear() {
+//    var href = $('#_refresh').attr('href');
+//    $('#question').removeClass('error');
+//    $('#intext').removeClass('error');
+//    $('#intext').val('').data('start', null).data('errors', null).data('sum_linelen', 0).data('sum_len', 0).data('sum_errors', null).data('sum_time', null).data('sum_words', 0);
+//    $('#text').removeClass('error');
+//    $('#text div').html('').addClass('empty');
+//    $('#speed .data').html('<span class="nimp">--/--</span>');
+//    if ($('#question').css('visibility') == 'visible')
+//        $('#error .data').html('0%');
+//    else
+//        $('#error .data').html('<span class="nimp">--/--</span>');
+//}
 
 
 //function rss_load(name) {
@@ -1616,4 +1705,16 @@ function stat_clear() {
 //            intext_check();
 //        }
 //    });
+//}
+
+//function show_relax_text(num) {
+//    var href = $('#_refresh').attr('href');
+//    var lang = href.split('_')[0].substring(1);
+//    if (lang == 'rus' || lang == 'ukr') {
+//        $('#text div.line' + num).html('Отдохните сейчас. <a href="#next" class="link" onclick="return dict_next();">Продолжить</a>').removeClass('empty');
+//    } else if (lang == 'epo') {
+//        $('#text div.line' + num).html('Ripozu nun. <a href="#next" class="link" onclick="return dict_next();">Daŭrigi</a>').removeClass('empty');
+//    } else {
+//        $('#text div.line' + num).html('Relax now. <a href="#next" class="link" onclick="return dict_next();">Continue</a>').removeClass('empty');
+//    }
 //}

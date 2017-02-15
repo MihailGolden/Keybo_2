@@ -30,11 +30,12 @@
                     <li id="rating">@Html.ActionLink("Рейтинг", "Rating", "Home")</li>
                     @*<li><a href="#" id="hide_all">Hide</a></li>*@
                    
-                    <li class="dropdown nav_menu_show" style="display: none;">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" title="Select dictonary | Выберите словарь" id="dict_sel_">Выбор | Select<span class="caret"></span></a>
+                    
+                    <li class="dropdown nav_menu_show" style="display: none;" id="_dict_sel">
+                        <a href="#" class="dropdown-toggle head" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" title="Select dictonary | Выберите словарь" id="_dict_sel">Выбор | Select<span class="caret"></span></a>
                                 <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
                                      <li class="dropdown-submenu">
-                                        <a tabindex="-1" href="" title="English keyboard">English</a>
+                                        <a tabindex="-1" href="#" title="English keyboard">English</a>
                                         <ul class="dropdown-menu">
                                             <li><a tabindex="-1" href="#eng_basic" title="0–59">English start</a></li>
                                             <li><a tabindex="-1" href="#eng_begin" title="60–109">English begin</a></li>
@@ -44,7 +45,7 @@
                                     </li>
                                     <li role="separator" class="divider">asdfasd</li>
                                     <li class="dropdown-submenu">
-                                        <a tabindex="-1" href="" title="Русская раскладка">Русский</a>
+                                        <a tabindex="-1" href="#" title="Русская раскладка">Русский</a>
                                         <ul class="dropdown-menu">
                                             <li><a tabindex="-1" href="#rus_basic" title="0–59">Русский старт</a></li>
                                             <li><a tabindex="-1" href="#rus_begin" title="60–109">Русский начальный</a></li>
@@ -54,7 +55,7 @@
                                     </li>
                                     <li role="separator" class="divider"></li>
                                     <li class="dropdown-submenu">
-                                        <a tabindex="-1" href="" title="Українська">Українська</a>
+                                        <a tabindex="-1" href="#" title="Українська">Українська</a>
                                         <ul class="dropdown-menu">
                                             <li><a tabindex="-1" href="#ukr_basic" title="0–59">Українська стартовий</a></li>
                                             <li><a tabindex="-1" href="#ukr_begin" title="60–109">Українська початковий</a></li>
@@ -64,7 +65,7 @@
                                     </li>
                                     <li role="separator" class="divider"></li>
                                     <li class="dropdown-submenu">
-                                        <a href="">Dictionary | Словарь</a>
+                                        <a>Dictionary | Словарь</a>
                                         <ul class="dropdown-menu">
                                             <li><a href="#rus_dict_eng_top">Start (eng / рус)</a></li>
                                             <li><a href="#eng_dictrev_rus_top">Start (рус / eng)</a></li>
@@ -83,7 +84,7 @@
                         </li>
 
                     <li>
-                        <a>
+                        <a id="_refresh">
                             <img src="~/Content/images/Refresh.png" width="20"/>
                         </a>
                     </li>
@@ -105,8 +106,7 @@
 
     <nav class="navbar-default navbar-fixed-bottom">
         <div class="row  text-center">
-            <div class="col-md-3">
-                <p>&copy; @DateTime.Now.Year - Keybotrain</p>
+            <div class="col-md-3"><a><p>&copy; @DateTime.Now.Year - Keybotrain</p></a>
             </div>
             <div class="col-md-3">
                 <a mailto="info@keybotrain.com">info@keybotrain.com</a>
@@ -139,17 +139,10 @@
                         type="text/javascript">
                     cgb_r += "&js=" + cgb_js;
                     document.write("<a href='http://www.1Gb.ua?cnt=19292'>" +
-                    "<img src='http://counter.1Gb.ua/cnt.aspx?" +
+                    "<img style=\"filter: grayscale(100%);\" src='http://counter.1Gb.ua/cnt.aspx?" +
                     "u=19292&" + cgb_r +
                     "&' border=0 width=50 height=24 " +
                     "alt='1Gb.ua counter'><\/a>")</script>
-                <noscript>
-                    <a href='http://www.1Gb.ua?cnt=19292'>
-                        <img src="http://counter.1Gb.ua/cnt.aspx?u=19292"
-                             border=0 width="50" height="24" alt="1Gb.ua counter">
-                    </a>
-                </noscript>
-                <!-- /counter.1Gb.ua -->
             </div>
         </div>
     </nav>
