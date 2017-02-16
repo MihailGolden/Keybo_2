@@ -1,6 +1,6 @@
 ﻿"use strict";
 
-//type of keyboards
+//types of keyboards
 var keyboards = {
     'eng': {
         'qwerty': ['`<sup><sup>~</sup></sup>', '1<sup>!</sup>', '2<sup>&#64</sup>', '3<sup>#</sup>', '4<sup>$</sup>', '5<sup>%</sup>', '6<sup>^</sup>', '7<sup>&amp;</sup>', '8<sup>*</sup>', '9<sup>(</sup>', '0<sup>)</sup>', '-<sup><sup>_</sup></sup>', '=<sup>+</sup>',
@@ -21,9 +21,13 @@ var keyboards = {
 				'Я', 'Ч', 'С', 'М', 'І', 'Т', 'Ь', 'Б', 'Ю', 'Ї']
     }
 };
-var language = ['eng', 'rus', 'eng'];
-var audition = false;
+
+
+var language_arr = ['eng', 'rus', 'eng'];
+
 var beep = true;
+var tts = false;
+var audition = false;
 var ShowKeyboardColor = false;
 var showHands = false;
 var showKeyboard = true;
@@ -32,26 +36,8 @@ var showNumKeyboard = false;
 
 var blur_timer = null;
 
-var tts = false;
-
-
-//tts.speak(
-//  // Текст для озвучивания.
-//  'Меня зовут Вася',
-//  // Переопределяем настройки синтеза.
-//  {
-//      // Имя диктора.
-//      speaker: 'jane',
-//      // Эмоции в голосе. 
-//      emotion: 'neutral',
-//      // Функция-обработчик, которая будет вызвана по завершении озвучивания.
-//      stopCallback: function () {
-//          console.log("Озвучивание текста завершено.");
-//      }
-//  }
-//)
-
-
+//question in dictionary method english word
+var _question = '';
 
 
 
@@ -65,9 +51,7 @@ $.cookie = function (name, value, options) {
         date = new Date();
         date.setTime(date.getTime() + (31 * 24 * 60 * 60 * 1000));
         var expires = '; expires=' + date.toUTCString();
-        //console.log("name ", name, "encodeURIComponent(value) ", encodeURIComponent(value), "expires ", expires);
-
-
+        //console.log("function cookie ","name ", name, "encodeURIComponent(value) ", encodeURIComponent(value), "expires ", expires);
         document.cookie = [name, '=', encodeURIComponent(value), expires].join('');
     } else {
         var cookieValue = null;
@@ -81,20 +65,18 @@ $.cookie = function (name, value, options) {
                 }
             }
         }
-        //console.log("decodeURIComponent(cookieValue)", decodeURIComponent(cookieValue));
+        //console.log("function cookie ", "decodeURIComponent(cookieValue)", decodeURIComponent(cookieValue));
         return cookieValue;
     }
 };
 
-
-  
-
 $(function () {
 
+        //instance of yandex API audition service
         tts = new ya.speechkit.Tts({
             apikey: 'b332723f-d4d3-45cb-8c13-6416f0f17331'
         });
-        console.log("tts created f");
+        console.debug("yandex speech tts created");
 
 
     //beeper where mistake
@@ -104,26 +86,27 @@ $(function () {
         $('#error .data, #speed .data').fadeToggle();
         $('#intext').focus();
     });
-    //if ($.cookie('keybotrain_speed_error') == 'no') {
-    // $('#hide_keyboard').hide();
-    // $('#error .data, #speed .data').hide();
-    //}
-    //$('div.title, span.title');
+
+    if ($.cookie('keybotrain_speed_error') == 'no') {
+     $('#hide_keyboard').hide();
+     $('#error .data, #speed .data').hide();
+    }
+    $('div.title, span.title');
     $('#text div').addClass('empty');
     $('#text div.line2').text('Dictonary loading... | Загрузка словаря...');
 
     //timer
-    //$('#time_sel .close').click(function () {
-    //  $('#time_sel').fadeOut();
-    // $('#intext').focus();
-    //});
+    $('#time_sel .close').click(function () {
+      $('#time_sel').fadeOut();
+     $('#intext').focus();
+    });
 
-    //$('#time a').click(function () {
-    //    intext_notblur();
-    //    $('div.wind_sel').fadeOut();
-    //    $('#time_sel').fadeIn();
-    //    return false;
-    //});
+    $('#time a').click(function () {
+        intext_notblur();
+        $('div.wind_sel').fadeOut();
+        $('#time_sel').fadeIn();
+        return false;
+    });
 
     
 
@@ -336,7 +319,7 @@ $(function () {
     $('#_refresh').click(function () {
         dict_refresh();
         $('#intext').focus();
-        speak();
+        //speak();
         return false;
     });
 
@@ -350,28 +333,23 @@ $(function () {
     get_location();
     dict_start($('#_refresh').attr('href'));
 
-    // console.log("sdf");
-    //console.log($('.line1').toString);
-
+//function for audition
     $('#textform').keydown(function (e) {
-        console.log("keydown", e.which);
+        //console.log("keydown", e.which);
         if (e.which == '32' || e.which == '13') {
             var href = document.location.hash;
             var lang = href.substring(1).split('_')[0];
             var type = href.split('_')[1];
             console.log("type", type);
-            //if (type == 'basic' || type == 'speed') {
-            //    speak();
-            //}
+            console.log("lang", lang);
             if (type == 'begin' || type == 'adv' || type == 'basic' || type == 'speed') {
                 var speak_words = $('#text .line1').text().replace(/\s/g, ' ');
-                console.log('speak_words', speak_words);
+                //console.log('speak_words', speak_words);
                 var word_checked = $('#text .checked').text().replace(/\s/g, ' ');
-
                 //var word_checked = $('#text .checked').text().split(/[\s\!,\.\?]+/g).pop();
                 var word_unchecked = speak_words.replace(word_checked, '');
-                console.log('word_checked', word_checked);
-                console.log('word_unchecked', word_unchecked);
+                //console.log('word_checked', word_checked);
+                //console.log('word_unchecked', word_unchecked);
                 var word_checked_split = word_checked.split(' ');
                 var word_unchecked_split = word_unchecked.split(' ');
                 var sound = '';
@@ -379,47 +357,46 @@ $(function () {
                     dict_refresh();
                 }
                 if (word_unchecked.startsWith(' ')) {
-                    console.log('(word_unchecked.startsWith(\' \'');
+                   //console.log('(word_unchecked.startsWith(\' \'');
                     sound = word_unchecked_split[1];
-                    console.log("sound", sound);
+                    //console.log("sound", sound);
                 } else {
-                    console.log('(word_unchecked.DO NOT startsWith(\' \'');
-
+                    //console.log('(word_unchecked.DO NOT startsWith(\' \'');
                     sound = word_checked_split.pop() + word_unchecked_split.shift();
-                    console.log("sound", sound);
+                    //console.log("sound", sound);
                 }
-
                 //var splited = speak_words.split(' ');
                 //var text = splited[1];
                 //console.log("sadfasdfa", text);
                 speak(sound);
             }
-
+            else if (type == 'dict') {
+                console.log(_question);
+                speak(_question);
+            }
         }
     });
-
 });
 
-window.onload = function () {
-    speak();
-}
-
-
+// function to audition input text
 function speak(text) {
+    console.debug("function speak(text), text=", text);
     var speak_words = $('#text .line1').text().replace(/\s/g, ' ');
     var splited = speak_words.split(' ');
     if (splited[0] == splited[1])
         speak_words = splited[0];
     var href = document.location.hash;
-    console.log("href ", href);
+    //console.log("href ", href);
     var lang = href.substring(1).split('_')[0];
-    console.log("lang", lang);
-    console.log("splited [0] ", splited[0]);
+    //console.log("lang", lang);
+    //console.log("splited [0] ", splited[0]);
+    var speaker = 'zahar';
     if (text) {
-        console.log("text", text);
+        //console.log("text speak", text);
         speak_words = text;
+        speaker = 'jane';
     }
-    //langiage determining
+    //language determining
     var lang_ya = 'en-US';
     //var lang_yandex_choice = ['ru-RU', 'en-US', 'uk-UA'];
     switch (lang) {
@@ -435,36 +412,32 @@ function speak(text) {
         default:
             lang_ya = 'en-US';
     }
-    console.log("lang_ya", lang_ya);
-
+    //console.log("lang_ya", lang_ya);
     tts.speak(speak_words,
             {
             speed: 0.9,
             lang: lang_ya,
-            // Имя диктора.
-            speaker: 'zahar',
-            // Эмоции в голосе. 
+            // Dictor's name: 'zahar' 'jane'.
+            speaker: speaker,
+            // Emotion: 'good' 'neutral'
             emotion: 'good',
-            // Функция-обработчик, которая будет вызвана по завершении озвучивания.
+            // Callback function
             stopCallback: function () {
                 console.log("Озвучивание текста завершено.", speak_words);
             }
         })
     }
 
-
-//0 my dictoinary in separate window after press OK button
+// my dictoinary in separate window after press OK button
 function my_dict() {
-    //console.log('my_dict');
+    console.debug('function my_dict()');
     $('#_refresh').attr('href', '#mydict');
     $.cookie('keybotrain_dict', '#mydict');
     $('#_dict_sel a').text('Мой словарь | My dictionary');
     window.location.href = '#mydict';
     $('#dict a').text($('#_dict_sel a[href=\\#mydict]').text());
     var text = $('#dict_data').val();
-    console.log("text 408", text);
-
-    
+    //console.log("text 408", text);
     dict_cleardata();
     dict_generate(text);
     intext_check();
@@ -472,9 +445,8 @@ function my_dict() {
     $('#intext').focus();
 }
 
-
-
 function layout_sel(a) {
+    console.debug('function layout_sel(a); a=', a);
     var href = $(a).attr('href');
     var layout = href.substring(1);
     draw_keyboard(layout);
@@ -484,13 +456,15 @@ function layout_sel(a) {
     $('#intext').focus();
     return false;
 }
+
 function text2html(text) {
+    console.debug('function text2html(text); text=', text);
     return text.replace(/</g, '&lt;');
 }
 
 //learning words method
 function dict_penalt(index, intext, line, type) {
-    //console.log('dict_penalt');
+    console.debug('function dict_penalt(index, intext, line, type)', 'index=', index, 'intext=', intext, 'line=', line, 'type=', type);
     $('#intext').val('');
     var line_index = $('#question').data('line');
     if (index == $('#question').data('index')) {
@@ -510,9 +484,7 @@ function dict_penalt(index, intext, line, type) {
             dline = dict[line_index].split('=')[1].split(';');
         }
         var tline = $('#text div.line' + $('#question').data('index')).text();
-
         console.log(tline, "...", dline, "...", index, "...", intext, "...", line, "...", type);
-
         $('#text div.line1').text(tline.substring(0, tline.length - 1) + '¶').removeClass('empty');
         $('#text div.line2').text(trim(dline[random(dline.length)]).substring(0, 79) + '¶').removeClass('empty');
         $('#text div.line3').text(trim(dline[random(dline.length)]).substring(0, 79) + '¶').removeClass('empty');
@@ -525,9 +497,10 @@ function dict_penalt(index, intext, line, type) {
     }
 }
 
-
-
+//checking input text
 function intext_check() {
+    console.debug('function intext_check()');
+
     //if (left_timer) {
     //    window.clearTimeout(left_timer);
     //}
@@ -695,6 +668,7 @@ function intext_check() {
 }
 
 function line_errors() {
+    console.debug('function line_errors()');
     var href = $('#_refresh').attr('href');
     var type = href.split('_')[1];
     if ((type != 'speed') && (type != 'begin') && (type != 'dict') && (type != 'dictrev')) {
@@ -724,9 +698,9 @@ function line_errors() {
     }
 }
 
-
 // set and count statistic function
 function set_stat(text) {
+    console.debug("set_stat(text) text=", text);
     text = text.replace(/ /g, ' ');
     var href = $('#_refresh').attr('href');
     var lang = href.split('_')[0].substring(1);
@@ -774,19 +748,19 @@ function set_stat(text) {
             $('#mistake').html((sum_len != len ? '<span class="nimp"><span title="' + (lang == 'rus' || lang == 'ukr' ? 'Ошибок на предыдущей строке' : 'Errors last') + '">' + error.toFixed(2) + '%</span> / </span>' : '') + '<span title="' + (lang == 'rus' || lang == 'ukr' ? 'Ошибок' : 'Errors') + '">' + sum_error.toFixed(2) + '%</span>');
         }
     }
-    //$('#speedometer').append("    ", Math.round(speed), " / ", Math.round(sum_speed));
-    //$('#mistake').append("   ", Math.round(error), " / ", Math.round(sum_error));
+    $('#speedometer').append("    ", Math.round(speed), " / ", Math.round(sum_speed));
+    $('#mistake').append("   ", Math.round(error), " / ", Math.round(sum_error));
 
     console.log('speed ', speed);
     console.log('sum_speed ', sum_speed);
     console.log('speed ', error);
     console.log('sum_speed ', sum_error);
-
 }
 
 
 var kbd_hint_timer = null;
 function kbd_hint_timer_init() {
+    console.debug('function kbd_hint_timer_init()');
     $('div.keyboard:visible div.sel').removeClass('sel');
     $('div.keyboard:visible div.space div').removeClass('sel_left').removeClass('sel_right');
     $('#hands div.hand').hide();
@@ -798,7 +772,9 @@ function kbd_hint_timer_init() {
 
     kbd_hint_timer = window.setTimeout(func_kbd_hint_timer, pause);
 }
+
 function func_kbd_hint_timer() {
+    console.debug('function func_kbd_hint_timer()');
     var layout = $('#layout_sel').data('layout');
     var href = $('#_refresh').attr('href');
     var lang = href.substring(1).split('_')[0];
@@ -945,14 +921,18 @@ function func_kbd_hint_timer() {
         $('#' + lr + 'hand' + hnum).css({ top: top - 5, left: left + left_plus }).show();
     });
 }
+
 function sel_shift(is_right) {
+    console.debug('function sel_shift(is_right); is_right=', is_right);
     if (is_right) {
         $('div.keyboard:visible div.keys:visible div.rshift').addClass('sel');
     } else {
         $('div.keyboard:visible div.keys:visible div.lshift').addClass('sel');
     }
 }
+
 function sel_fn(is_right) {
+    console.debug('function sel_fn(is_right); is_right=', is_right);
     if (is_right) {
         $('div.keyboard:visible div.keys:visible div.rfn').addClass('sel');
     } else {
@@ -961,6 +941,7 @@ function sel_fn(is_right) {
 }
 
 function get_location() {
+    console.debug('function get_location()');
     var location = document.location.href;
     var href = $('#_refresh').attr('href');
     if (location.indexOf('#') >= 0) {
@@ -978,6 +959,7 @@ function get_location() {
 }
 
 function dict_start(href) {
+    console.debug('function dict_start(href); href', href);
     var lang = href.substring(1).split('_')[0];
     var type = href.split('_')[1];
     $('#intext').val('').data('text', ' ');
@@ -1060,8 +1042,11 @@ function dict_start(href) {
         $('#intext').focus();
         return true;
     }
+
 }
+
 function dict_cleardata() {
+    console.debug('function dict_cleardata()');
     $('#question').text('').css('visibility', 'hidden');
     $('#hands div.hand').hide();
     $('#dict').removeClass('error');
@@ -1071,7 +1056,9 @@ function dict_cleardata() {
     $('#text div').html('').addClass('empty');
     $('#text').data('line', null).data('index', null).data('index_line', 0);
 }
+
 function dict_refresh() {
+    console.debug('function dict_refresh()');
     $('#intext').val('').data('text', ' ');
     var href = $('#_refresh').attr('href');
     var lang = href.substring(1).split('_')[0];
@@ -1121,13 +1108,15 @@ function dict_refresh() {
 
 //0 show window for input my text
 function dict_mytext() {
-    ///// $('#_dict_sel').fadeOut();
+    console.debug('function dict_mytext()');
+    $('#_dict_sel').fadeOut();
     $('#my_dict').fadeIn(function () {
         $('#dict_data').focus();
     });
 }
 
 function dict_numpad() {
+    console.debug('function dict_numpad()');
     dict_cleardata();
     $('#text div.line1').html(numpad_random()).removeClass('empty');
     $('#numkeyboard').fadeIn();
@@ -1137,7 +1126,9 @@ function dict_numpad() {
     $('#intext').val('').hide().fadeIn(function () { $(this).focus(); });
     $('#text').hide().fadeIn();
 }
+
 function dict_num() {
+    console.debug('function dict_num()');
     dict_cleardata();
     $('#text div.line1').html(num_random()).removeClass('empty');
     $('#numkeyboard').hide();
@@ -1147,10 +1138,14 @@ function dict_num() {
     $('#intext').val('').hide().fadeIn(function () { $(this).focus(); });
     $('#text').hide().fadeIn();
 }
+
 function random(num) {
+    console.debug('function random(num); num = ', num);
     return Math.floor(Math.random() * num);
 }
+
 function numpad_random() {
+    console.debug('function numpad_random()');
     var str = '';
     var aop = ['/', '*', '-', '+', '+'];
     while (str.length < 70) {
@@ -1177,7 +1172,9 @@ function numpad_random() {
     }
     return str + '¶';
 }
+
 function num_random() {
+    console.debug('function num_random()');
     var str = '';
     while (str.length < 70) {
         if (str != '') {
@@ -1205,6 +1202,7 @@ function num_random() {
 }
 
 function dict_load(name) {
+    console.debug('function dict_load(name); name=', name);
     $('#dict').removeClass('error').addClass('wait');
     $.ajax({
         url: '/Content/dict/' + name + '.txt',
@@ -1223,6 +1221,7 @@ function dict_load(name) {
 
 var dict = [];
 function dict_generate(text) {
+    console.debug('function dict_generate(text); text=', text);
     dict_cleardata();
     var href = $('#_refresh').attr('href');
     var lang = href.split('_')[0].substring(1);
@@ -1236,8 +1235,12 @@ function dict_generate(text) {
     text_generate();
     $('#intext').hide().fadeIn(function () { $(this).focus(); });
     $('#text').hide().fadeIn();
+    //speak();
+
 }
+
 function dict_next() {
+    console.debug('function dict_next()');
     $('#text div').html('').addClass('empty');
     $('#time a').text($('#time').data('minutes'));
     $('#time').data('time', null);
@@ -1245,18 +1248,20 @@ function dict_next() {
     $('#intext').focus();
     return false;
 }
+
 function show_relax() {
+    console.debug('function show_relax()');
     $('#text div').html('').addClass('empty');
     show_relax_text(3);
 }
 
-
-
 function trim(str) {
+    console.debug('function trim(str)');
     return str.replace(/(^\s+)|(\s+$)/g, '');
 }
 
 function text_generate() {
+    console.debug('function text_generate()');
     var href = $('#_refresh').attr('href');
     var lang = href.split('_')[0].substring(1);
     var type = href.split('_')[1];
@@ -1521,10 +1526,13 @@ function text_generate() {
         }
     }
     console.log("1467", word, tword);
+    _question = tword;
+    speak(tword);
     intext_check();
 }
 
 function rand_dict(notin) {
+    console.debug('function rand_dict(notin); notin=', notin);
     if (!dict.length) return -1;
     var index = random(dict.length);
     var end = index;
@@ -1537,6 +1545,7 @@ function rand_dict(notin) {
 }
 
 function show_keyboard() {
+    console.debug('function show_keyboard()');
     var href = $('#_refresh').attr('href');
     var lang = href.split('_')[0].substring(1);
     var kbd = href.split('_')[0].substring(1);
@@ -1570,6 +1579,7 @@ function show_keyboard() {
 }
 
 function draw_keyboard(layout) {
+    console.debug('function draw_keyboard(layout); layout=', layout);
     $('#layout_sel').data('layout', layout);
     var href = $('#_refresh').attr('href');
     var lang = href.split('_')[0].substring(1);
@@ -1625,48 +1635,23 @@ function draw_keyboard(layout) {
     }
 }
 
-
-////left timer
-//var left_timer = null;
-//function func_left_timer() {
-//    var href = $('#_refresh').attr('href');
-//    var type = href.split('_')[1];
-//    $('#intext').val('').data('line', null);
-//    if ((!$('#text div.empty').length) || (href == '#numpad') || (type == 'num') || (type == 'basic') || (type == 'begin') || (type == 'speed')) {
-//        $('#time').data('time', null);
-//        $('#time a').text($('#time').data('minutes'));
-//    }
-//    intext_check();
-//}
-
-////esperanto
-//function epo_ikso(intext, line) {
-//    var last = intext.substring(intext.length - 1).toLowerCase();
-//    var llast = line.substring(intext.length - 1, intext.length).toLowerCase();
-//    if ((last == 's' && llast == 'ŝ') || (last == 'g' && llast == 'ĝ') || (last == 'j' && llast == 'ĵ') || (last == 'c' && llast == 'ĉ') || (last == 'h' && llast == 'ĥ') || (last == 'u' && llast == 'ŭ')) {
-//        return '';
-//    }
-//    if (intext.substring(intext.length - 1).toLowerCase() == 'x') {
-//        var prev = intext.substring(intext.length - 2, intext.length - 1).toLowerCase();
-//        if (prev == 's' || prev == 'g' || prev == 'j' || prev == 'c' || prev == 'h' || prev == 'u') {
-//            prev = intext.substring(intext.length - 2, intext.length - 1);
-//            prev = prev.replace('S', 'Ŝ').replace('s', 'ŝ');
-//            prev = prev.replace('G', 'Ĝ').replace('g', 'ĝ');
-//            prev = prev.replace('J', 'Ĵ').replace('j', 'ĵ');
-//            prev = prev.replace('C', 'Ĉ').replace('c', 'ĉ');
-//            prev = prev.replace('H', 'Ĥ').replace('h', 'ĥ');
-//            prev = prev.replace('U', 'Ŭ').replace('u', 'ŭ');
-//            intext = intext.substring(0, intext.length - 2) + prev;
-//            $('#intext').val(intext);
-//            return intext;
-//        }
-//    }
-//    return intext;
-//}
+//left timer
+var left_timer = null;
+function func_left_timer() {
+    console.debug('function func_left_timer()');
+    var href = $('#_refresh').attr('href');
+    var type = href.split('_')[1];
+    $('#intext').val('').data('line', null);
+    if ((!$('#text div.empty').length) || (href == '#numpad') || (type == 'num') || (type == 'basic') || (type == 'begin') || (type == 'speed')) {
+        $('#time').data('time', null);
+        $('#time a').text($('#time').data('minutes'));
+    }
+    intext_check();
+}
 
 //timer of time when #intext is not blur
 function intext_notblur() {
-    //console.log(blur_timer);
+    console.debug('function intext_notblur()');
     if (blur_timer != null) {
         window.clearTimeout(blur_timer);
         blur_timer = null;
@@ -1675,19 +1660,31 @@ function intext_notblur() {
 }
 
 //Clear ststistic function
-//function stat_clear() {
-//    var href = $('#_refresh').attr('href');
-//    $('#question').removeClass('error');
-//    $('#intext').removeClass('error');
-//    $('#intext').val('').data('start', null).data('errors', null).data('sum_linelen', 0).data('sum_len', 0).data('sum_errors', null).data('sum_time', null).data('sum_words', 0);
-//    $('#text').removeClass('error');
-//    $('#text div').html('').addClass('empty');
-//    $('#speed .data').html('<span class="nimp">--/--</span>');
-//    if ($('#question').css('visibility') == 'visible')
-//        $('#error .data').html('0%');
-//    else
-//        $('#error .data').html('<span class="nimp">--/--</span>');
-//}
+function stat_clear() {
+    console.debug('function stat_clear()');
+    var href = $('#_refresh').attr('href');
+    $('#question').removeClass('error');
+    $('#intext').removeClass('error');
+    $('#intext').val('').data('start', null).data('errors', null).data('sum_linelen', 0).data('sum_len', 0).data('sum_errors', null).data('sum_time', null).data('sum_words', 0);
+    $('#text').removeClass('error');
+    $('#text div').html('').addClass('empty');
+    $('#speed .data').html('<span class="nimp">--/--</span>');
+    if ($('#question').css('visibility') == 'visible')
+        $('#error .data').html('0%');
+    else
+        $('#error .data').html('<span class="nimp">--/--</span>');
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 //function rss_load(name) {
@@ -1717,4 +1714,29 @@ function intext_notblur() {
 //    } else {
 //        $('#text div.line' + num).html('Relax now. <a href="#next" class="link" onclick="return dict_next();">Continue</a>').removeClass('empty');
 //    }
+//}
+
+////esperanto
+//function epo_ikso(intext, line) {
+//    var last = intext.substring(intext.length - 1).toLowerCase();
+//    var llast = line.substring(intext.length - 1, intext.length).toLowerCase();
+//    if ((last == 's' && llast == 'ŝ') || (last == 'g' && llast == 'ĝ') || (last == 'j' && llast == 'ĵ') || (last == 'c' && llast == 'ĉ') || (last == 'h' && llast == 'ĥ') || (last == 'u' && llast == 'ŭ')) {
+//        return '';
+//    }
+//    if (intext.substring(intext.length - 1).toLowerCase() == 'x') {
+//        var prev = intext.substring(intext.length - 2, intext.length - 1).toLowerCase();
+//        if (prev == 's' || prev == 'g' || prev == 'j' || prev == 'c' || prev == 'h' || prev == 'u') {
+//            prev = intext.substring(intext.length - 2, intext.length - 1);
+//            prev = prev.replace('S', 'Ŝ').replace('s', 'ŝ');
+//            prev = prev.replace('G', 'Ĝ').replace('g', 'ĝ');
+//            prev = prev.replace('J', 'Ĵ').replace('j', 'ĵ');
+//            prev = prev.replace('C', 'Ĉ').replace('c', 'ĉ');
+//            prev = prev.replace('H', 'Ĥ').replace('h', 'ĥ');
+//            prev = prev.replace('U', 'Ŭ').replace('u', 'ŭ');
+//            intext = intext.substring(0, intext.length - 2) + prev;
+//            $('#intext').val(intext);
+//            return intext;
+//        }
+//    }
+//    return intext;
 //}

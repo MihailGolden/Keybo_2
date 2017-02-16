@@ -1,21 +1,36 @@
 ﻿@{
-    ViewBag.Title = "Contact";
+    ViewBag.Title = "Rating";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+<html>
+<head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['table']});
+      google.charts.setOnLoadCallback(drawTable);
 
-<script>
-        $('#rating').addClass('active');
-</script>
+      function drawTable() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Имя');
+        data.addColumn('number', 'Скорость набора');
+        data.addColumn('number', 'Процент ошибок');
+        data.addRows([
+          ['Vadim_Z',  {v: 8, f: '240'}, 8],
+          ['Jim',   {v: 15,   f: '210'},  15],
+          ['Alice', {v: 20, f: '190'}, 20],
+          ['Bob',   {v: 5,  f: '120'},  5]
+        ]);
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+        var table = new google.visualization.Table(document.getElementById('table_div'));
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+        table.draw(data, {showRowNumber: true, width: '80%', height: '100%'});
+      }
+    </script>
+</head>
+<body>
+    <h1>Рейтинг</h1>
+    <p>Рейтинг составляется по результатам набора в режиме "тренировка / training" </p>
+    <div id="table_div"></div>
+
+    
+</body>
+</html>
