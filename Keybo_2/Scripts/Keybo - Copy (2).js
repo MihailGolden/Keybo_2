@@ -551,6 +551,7 @@ function intext_check() {
         $('#text div.line1').html((intext.length > 0 ? '<span class="checked">' + text2html(line1.substring(0, intext.length)) + '</span>' : '') + text2html(line1.substring(intext.length)));
         line_errors();
         if (intext.length >= line1.length) {
+
             set_stat(line1);
             if (type == 'speed') {
                 $('#question').removeClass('error');

@@ -1,4 +1,9 @@
-﻿     .dropdown-submenu {
+﻿button {
+    height:50px; 
+    width:50px
+}
+
+     .dropdown-submenu {
   position: relative;
 }
 
@@ -668,7 +673,7 @@ div.keyboard div.select {
         text-align: center;
     }
 
-#hide_keyboard {
+/*#hide_keyboard {
     cursor: pointer;
     float: right;
     margin-top: 3px;
@@ -690,9 +695,9 @@ div.keyboard div.select {
     display: inline-block;
     background: url('/Content/images/icons.png') no-repeat 0 -100px;
     z-index: 2;
-}
+}*/
 
-#hide_hand {
+/*#hide_hand {
     cursor: pointer;
     float: right;
     margin-top: 3px;
@@ -712,9 +717,9 @@ div.keyboard div.select {
     height: 20px;
     display: inline-block;
     background: url('/Content/images/icons.png') no-repeat 0 -200px;
-}
+}*/
 
-#hide_color {
+/*#hide_color {
     cursor: pointer;
     float: right;
     margin-top: 3px;
@@ -734,17 +739,14 @@ div.keyboard div.select {
     height: 20px;
     display: inline-block;
     background: url('/Content/images/icons.png') no-repeat 0 -650px;
-}
+}*/
 
-#hide_sound {
+/*#hide_sound {
     cursor: pointer;
     float: right;
     margin-top: 3px;
     margin-left: 15px;
-    width: 32px;
-    height: 20px;
     display: inline-block;
-    background: url('/Content/images/icons.png') no-repeat 0 -750px;
 }
 
 #show_sound {
@@ -752,13 +754,26 @@ div.keyboard div.select {
     float: right;
     margin-top: 3px;
     margin-left: 15px;
-    width: 32px;
-    height: 20px;
     display: inline-block;
-    background: url('/Content/images/icons.png') no-repeat 0 -800px;
+}*/
+
+/*#show_speaker {
+    cursor: pointer;
+    float: right;
+    margin-top: 3px;
+    margin-left: 15px;
+    display: inline-block;
 }
 
-#hide_autobackspace {
+#hide_speaker {
+    cursor: pointer;
+    float: right;
+    margin-top: 3px;
+    margin-left: 15px;
+    display: inline-block;
+}*/
+
+/*#hide_autobackspace {
     cursor: pointer;
     float: right;
     margin-top: 3px;
@@ -778,7 +793,7 @@ div.keyboard div.select {
     height: 20px;
     display: inline-block;
     background: url('/Content/images/icons.png') no-repeat 0 -550px;
-}
+}*/
 
 div.keyboard.hide {
     visibility: hidden;

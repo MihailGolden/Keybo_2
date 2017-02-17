@@ -31,7 +31,7 @@
                     @*<li><a href="#" id="hide_all">Hide</a></li>*@
                    
                     
-                    <li class="dropdown nav_menu_show" style="display: none;" id="_dict_sel">
+                    <li class="dropdown nav_menu_show hideble" style="display: none;" id="_dict_sel">
                         <a href="#" class="dropdown-toggle head" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" title="Select dictonary | Выберите словарь" id="_dict_sel">Выбор | Select<span class="caret"></span></a>
                                 <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
                                      <li class="dropdown-submenu">
@@ -79,19 +79,19 @@
                                     <li><a href="#num_begin">Numline | Цифровой ряд</a></li>
                                     <li><a href="#numpad">Numpad | Цифровой блок</a></li>
                                     <li role="separator" class="divider"></li>
-                                    <li><a href="#mydict" class="link">My text | Мой текст</a></li>
+                                    <li><a href="#mydict" class="link" id="menu_mydict">My text | Мой текст</a></li>
                                 </ul>
                         </li>
 
                     <li>
-                        <a id="_refresh">
+                        <a id="_refresh" class="hideble" style="display: none;">
                             <img src="~/Content/images/Refresh.png" width="20"/>
                         </a>
                     </li>
 
                 </ul>
                 @Html.Partial("_LoginPartial")
-                <ul style="display: none;" class="nav navbar-nav navbar-right img-circle nav_menu_show">
+                <ul class="nav navbar-nav navbar-right img-circle nav_menu_show">
                     <li><a><img src="~/Content/images/speed.png" heigth="20" width="20"></a></li>
                     <li><a id="speedometer"></a></li>
                     <li><a><img src="~/Content/images/mistake.png" heigth="20" width="20"></a></li>

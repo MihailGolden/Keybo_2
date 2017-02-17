@@ -60,12 +60,50 @@
 
     <div id="content">
         <div class="btn-group-vertical btn-group-justified text-center backg">
-            <button id="btn_speaker"><img src="~/Content/images/all_icons/ico_speaker_on.png" width="25" /></button> 
-            <button id="btn_beep"><img src="~/Content/images/all_icons/ico_beep_on.png" width="25" /></button>
-            <button id="btn_color"><img src="~/Content/images/all_icons/ico_keyboard_color.png" width="25" /></button>
-            <button id="btn_hands"><img src="~/Content/images/all_icons/ico_hands_on.png" width="25" /></button>
-            <button id="btn_keyboard"><img src="~/Content/images/all_icons/ico_keyboard_on.png" width="25" /></button>
-            <button id="btn_backspace"><img src="~/Content/images/all_icons/ico_backspace_on.png" width="25" /></button>
+
+            <button id="show_speaker" title="Speaker on | Выключить диктора">
+                <img class="btn-block" src="~/Content/images/all_icons/ico_speaker_on.png" />
+            </button>
+            <button style="display: none;" id="hide_speaker" title="Speaker off | Включить диктора">
+                <img class="btn-block" src="~/Content/images/all_icons/ico_speaker_off.png" />
+            </button>
+
+            <button id="show_sound" title="Sound on | Включить звук">
+                <img class="btn-block" src="~/Content/images/all_icons/ico_beep_off.png" />
+            </button>
+            <button style="display: none;" id="hide_sound" title="Sound off | Выключить звук">
+                <img class="btn-block" src="~/Content/images/all_icons/ico_beep_on.png" />
+            </button>
+
+            <button id="show_color" title="Show color | Показать цвет">
+                <img class="btn-block" src="~/Content/images/all_icons/ico_keyboard_gray.png" />
+            </button>
+            <button style="display: none;" id="hide_color" title="Hide color | Убрать цвет">
+                <img class="btn-block" src="~/Content/images/all_icons/ico_keyboard_color.png" />
+            </button>
+
+            <button id="show_hand" title="Show hands | Показать руки">
+                <img class="btn-block" src="~/Content/images/all_icons/ico_hands_off.png" />
+            </button>
+            <button style="display: none;" id="hide_hand" title="Hide hands | Скрыть руки">
+                <img class="btn-block" src="~/Content/images/all_icons/ico_hands_on.png" />
+            </button>
+
+            <button id="show_keyboard" title="Show keyboard | Показать клавиатуру">
+                <img class="btn-block" src="~/Content/images/all_icons/ico_keyboard_off.png" />
+            </button>
+            <button style="display: none;" id="hide_keyboard" title="Hide keyboard | Скрыть клавиатуру">
+                <img class="btn-block" src="~/Content/images/all_icons/ico_keyboard_on.png" />
+            </button>
+
+            <button id="show_autobackspace" title="Autobackspace On | Включить автокоррекцию">
+                <img class="btn-block" src="~/Content/images/all_icons/ico_backspace_off.png" />
+            </button>
+            <button style="display: none;" id="hide_autobackspace" title="Autobackspace Off | Выключить&nbsp;автокоррекцию ? Shift+Backspace">
+                <img class="btn-block" src="~/Content/images/all_icons/ico_backspace_on.png" />
+            </button>
+
+
         </div>
 
   
@@ -137,17 +175,17 @@
             <div class="line5"></div>
         </div>
         <div id="block_keyboards">
-            <span id="hide_autobackspace" title="Autobackspace Off | Выключить&nbsp;автокоррекцию ? Shift+Backspace"></span>
-            <span style="display: none;" id="show_autobackspace" title="Autobackspace On | Включить автокоррекцию"></span>
-            <span style="display: none;" id="show_keyboard" title="Show keyboard | Показать клавиатуру"></span>
+            @*<span id="hide_autobackspace" title="Autobackspace Off | Выключить&nbsp;автокоррекцию ? Shift+Backspace"></span>
+            <span style="display: none;" id="show_autobackspace" title="Autobackspace On | Включить автокоррекцию"></span>*@
+            @*<span style="display: none;" id="show_keyboard" title="Show keyboard | Показать клавиатуру"></span>*@
             <div id="keyboards">
-                <span id="hide_keyboard" title="Hide keyboard | Скрыть клавиатуру"></span>
-                <span id="hide_hand" title="Hide hands | Скрыть руки"></span>
-                <span style="display: none;" id="show_hand" title="Show hands | Показать руки"></span>
-                <span style="display: none;" id="hide_color" title="Hide color | Убрать цвет"></span>
-                <span id="show_color" title="Show color | Показать цвет"></span>
-                <span style="display: none;" id="hide_sound" title="Sound off | Выключить звук"></span>
-                <span id="show_sound" title="Sound on | Включить звук"></span>
+                @*<span id="hide_keyboard" title="Hide keyboard | Скрыть клавиатуру"></span>*@
+                @*<span id="hide_hand" title="Hide hands | Скрыть руки"></span>
+                <span style="display: none;" id="show_hand" title="Show hands | Показать руки"></span>*@
+                @*<span style="display: none;" id="hide_color" title="Hide color | Убрать цвет"></span>
+                <span id="show_color" title="Show color | Показать цвет"></span>*@
+                @*<span style="display: none;" id="hide_sound" title="Sound off | Выключить звук"></span>
+                <span id="show_sound" title="Sound on | Включить звук"></span>*@
                 <div id="hands">
                     <div class="hand lhand" id="lhand4"></div>
                     <div class="hand lhand" id="lhand3"></div>
